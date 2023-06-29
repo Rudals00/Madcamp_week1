@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace 'com.example.madcamp'
-    compileSdk compileSdkVersion
+    compileSdkVersion 33
 
     defaultConfig {
         applicationId "com.example.madcamp"
-        minSdk 24
-        targetSdk 33
+        minSdkVersion 24
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -30,6 +30,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildToolsVersion '34.0.0'
 }
 
 dependencies {
