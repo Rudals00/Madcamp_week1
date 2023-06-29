@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace 'com.example.madcamp'
-    compileSdk 33
+    compileSdk compileSdkVersion
 
     defaultConfig {
         applicationId "com.example.madcamp"
