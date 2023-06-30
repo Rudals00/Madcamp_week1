@@ -1,6 +1,8 @@
 package com.example.madcamp
 
+import android.app.AlertDialog
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
@@ -8,6 +10,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +28,29 @@ class MyAdapter2(val datas: MutableList<Int>): RecyclerView.Adapter<RecyclerView
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyViewHolder2).binding
         binding.itemData.setImageResource(datas[position])
+
+        holder.binding.itemData.setOnClickListener {
+            // 확대된 이미지를 보여주는 AlertDialog 생성
+            val builder = AlertDialog.Builder(it.context)
+            val inflater = LayoutInflater.from(it.context)
+            val view = inflater.inflate(R.layout.dialog_image, null)
+
+            // dialog_image.xml에서 ImageView 찾기
+            val dialogImageView = view.findViewById<ImageView>(R.id.dialog_image_view)
+
+            // 클릭된 이미지를 원본 크기로 로드
+            val bitmap = BitmapFactory.decodeResource(it.context.resources, datas[position])
+            dialogImageView.setImageBitmap(bitmap)
+
+            // 이미지의 크기에 따라 ImageView의 크기를 설정
+            val layoutParams = dialogImageView.layoutParams
+            layoutParams.width = bitmap.width
+            layoutParams.height = bitmap.height
+            dialogImageView.layoutParams = layoutParams
+
+            builder.setView(view)
+            builder.create().show()
+        }
     }
 
     override fun getItemCount(): Int {
@@ -60,12 +86,12 @@ class TwoFragment : Fragment() {
         val binding = FragmentTwoBinding.inflate(inflater, container, false)
 
         val datas = mutableListOf<Int>()
-        for(i in 1..5){
+        for(i in 1..7){
             val id = resources.getIdentifier("img$i", "drawable", requireContext().packageName)
             datas.add(id)
         }
 
-        val gridLayoutManager = GridLayoutManager(activity, 4) // Grid size를 4로 설정했습니다.
+        val gridLayoutManager = GridLayoutManager(activity, 3) // Grid size를 3로 설정했습니다.
         binding.recyclerview.layoutManager = gridLayoutManager
         binding.recyclerview.adapter = MyAdapter2(datas)
         binding.recyclerview.addItemDecoration(MyDecoration2(datas))
