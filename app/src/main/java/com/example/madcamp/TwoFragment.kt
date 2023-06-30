@@ -1,15 +1,20 @@
 package com.example.madcamp
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Rect
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.ImageView
 import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -30,26 +35,37 @@ class MyAdapter2(val datas: MutableList<Int>): RecyclerView.Adapter<RecyclerView
         binding.itemData.setImageResource(datas[position])
 
         holder.binding.itemData.setOnClickListener {
-            // 확대된 이미지를 보여주는 AlertDialog 생성
-            val builder = AlertDialog.Builder(it.context)
-            val inflater = LayoutInflater.from(it.context)
-            val view = inflater.inflate(R.layout.dialog_image, null)
-
-            // dialog_image.xml에서 ImageView 찾기
-            val dialogImageView = view.findViewById<ImageView>(R.id.dialog_image_view)
-
             // 클릭된 이미지를 원본 크기로 로드
             val bitmap = BitmapFactory.decodeResource(it.context.resources, datas[position])
+
+            // 화면의 크기를 가져오기
+            val displayMetrics = DisplayMetrics()
+            (it.context as Activity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+            val deviceWidth = displayMetrics.widthPixels
+            val deviceHeight = displayMetrics.heightPixels
+
+            // 이미지의 크기와 화면 크기를 비교하여 AlertDialog의 크기를 결정
+            val dialogWidth = if(bitmap.width > deviceWidth) deviceWidth else bitmap.width
+            val dialogHeight = if(bitmap.height > deviceHeight) deviceHeight else bitmap.height
+
+            // 커스텀 다이얼로그를 생성
+            val dialog = Dialog(it.context).apply {
+                requestWindowFeature(Window.FEATURE_NO_TITLE)
+                setContentView(R.layout.dialog_image)
+                window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            }
+
+            // dialog_image.xml에서 ImageView 찾기
+            val dialogImageView = dialog.findViewById<ImageView>(R.id.dialog_image_view)
+
+            // ImageView에 Bitmap 설정
             dialogImageView.setImageBitmap(bitmap)
 
-            // 이미지의 크기에 따라 ImageView의 크기를 설정
-            val layoutParams = dialogImageView.layoutParams
-            layoutParams.width = bitmap.width
-            layoutParams.height = bitmap.height
-            dialogImageView.layoutParams = layoutParams
+            // 다이얼로그 크기 설정
+            dialog.window?.setLayout(dialogWidth, dialogHeight)
 
-            builder.setView(view)
-            builder.create().show()
+            // 다이얼로그 표시
+            dialog.show()
         }
     }
 
@@ -86,7 +102,7 @@ class TwoFragment : Fragment() {
         val binding = FragmentTwoBinding.inflate(inflater, container, false)
 
         val datas = mutableListOf<Int>()
-        for(i in 1..7){
+        for(i in 1..8){
             val id = resources.getIdentifier("img$i", "drawable", requireContext().packageName)
             datas.add(id)
         }
