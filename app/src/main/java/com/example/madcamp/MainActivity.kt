@@ -25,11 +25,10 @@ class MainActivity : AppCompatActivity() {
         binding.viewpager.adapter = MyFragmentPagerAdapter(this)
 
         TabLayoutMediator(binding.tabs,binding.viewpager){
-                tab, position-> tab.text = "Tab${(position+1)}"
+                tab, position-> tab.text = if(position==0) "Contacts" else if(position==1) "Gallery" else "TAB3"
         }.attach()
 
         // 툴바 적용
         setSupportActionBar(binding.toolbar)
-        binding.viewpager.adapter = MyFragmentPagerAdapter(this)
     }
 }
