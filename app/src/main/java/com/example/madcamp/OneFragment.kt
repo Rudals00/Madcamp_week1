@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp.databinding.FragmentOneBinding
 import com.example.madcamp.databinding.ItemRecyclerview1Binding
+import java.util.Random
 
 class MyViewHolder1(val binding: ItemRecyclerview1Binding): RecyclerView.ViewHolder(binding.root)
 
@@ -28,6 +29,18 @@ class MyAdapter1(val datas: MutableList<String>): RecyclerView.Adapter<RecyclerV
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyViewHolder1).binding
         binding.itemData.text = datas[position]
+        binding.profileData.text = datas[position].substring(0,1)
+        val random = Random()
+        val num = random.nextInt(5)
+        when(num) {
+            0 ->binding.profileData.setBackgroundResource(R.drawable.round_button_1)
+            1 ->binding.profileData.setBackgroundResource(R.drawable.round_button_2)
+            2 ->binding.profileData.setBackgroundResource(R.drawable.round_button_3)
+            3 ->binding.profileData.setBackgroundResource(R.drawable.round_button_4)
+            else ->binding.profileData.setBackgroundResource(R.drawable.round_button_5)
+        }
+
+
     }
 
     override fun getItemCount(): Int {
