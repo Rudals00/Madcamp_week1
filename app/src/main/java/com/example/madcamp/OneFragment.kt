@@ -15,18 +15,18 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp.databinding.FragmentOneBinding
-import com.example.madcamp.databinding.ItemRecyclerviewBinding
+import com.example.madcamp.databinding.ItemRecyclerview1Binding
 
-class MyViewHolder(val binding: ItemRecyclerviewBinding): RecyclerView.ViewHolder(binding.root)
+class MyViewHolder1(val binding: ItemRecyclerview1Binding): RecyclerView.ViewHolder(binding.root)
 
-class MyAdapter(val datas: MutableList<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyAdapter1(val datas: MutableList<String>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MyViewHolder(ItemRecyclerviewBinding.inflate(
+        return MyViewHolder1(ItemRecyclerview1Binding.inflate(
             LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val binding = (holder as MyViewHolder).binding
+        val binding = (holder as MyViewHolder1).binding
         binding.itemData.text = datas[position]
     }
 
@@ -81,7 +81,7 @@ class OneFragment : Fragment() {
         }
 
         binding.recyclerview.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerview.adapter = MyAdapter(datas)
+        binding.recyclerview.adapter = MyAdapter1(datas)
         binding.recyclerview.addItemDecoration(MyDecoration(activity as Context))
 
         return binding.root
