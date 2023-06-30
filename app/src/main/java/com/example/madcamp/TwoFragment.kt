@@ -12,18 +12,18 @@ import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp.databinding.FragmentTwoBinding
-import com.example.madcamp.databinding.ItemRecyclerviewBinding
+import com.example.madcamp.databinding.ItemRecyclerview2Binding
 
-class MyViewHolder(val binding: ItemRecyclerviewBinding) :
+class MyViewHolder2(val binding: ItemRecyclerview2Binding) :
         RecyclerView.ViewHolder(binding.root)
-class MyAdapter(val datas: MutableList<Int>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyAdapter2(val datas: MutableList<Int>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return MyViewHolder(ItemRecyclerviewBinding.inflate(
+        return MyViewHolder2(ItemRecyclerview2Binding.inflate(
             LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val binding = (holder as MyViewHolder).binding
+        val binding = (holder as MyViewHolder2).binding
         binding.itemData.setImageResource(datas[position])
     }
 
@@ -32,7 +32,7 @@ class MyAdapter(val datas: MutableList<Int>): RecyclerView.Adapter<RecyclerView.
     }
 }
 
-class MyDecoration(val datas: MutableList<Int>): RecyclerView.ItemDecoration() {
+class MyDecoration2(val datas: MutableList<Int>): RecyclerView.ItemDecoration() {
 
     // 각 항목을 꾸미기 위해 호출
     override fun getItemOffsets(
@@ -67,8 +67,8 @@ class TwoFragment : Fragment() {
 
         val gridLayoutManager = GridLayoutManager(activity, 4) // Grid size를 4로 설정했습니다.
         binding.recyclerview.layoutManager = gridLayoutManager
-        binding.recyclerview.adapter = MyAdapter(datas)
-        binding.recyclerview.addItemDecoration(MyDecoration(datas))
+        binding.recyclerview.adapter = MyAdapter2(datas)
+        binding.recyclerview.addItemDecoration(MyDecoration2(datas))
 
         return binding.root
     }
