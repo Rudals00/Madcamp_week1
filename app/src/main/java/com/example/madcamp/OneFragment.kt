@@ -48,7 +48,9 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
     }
 
     fun change_detail(position: Int) {
+
         Log.d("chan","clickeditem: ${position}")
+
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
