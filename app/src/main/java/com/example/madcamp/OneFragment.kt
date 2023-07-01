@@ -1,11 +1,16 @@
 package com.example.madcamp
 
+import android.Manifest
 import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.database.Cursor
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -14,6 +19,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
@@ -103,26 +110,158 @@ class MyDecoration(val context: Context): RecyclerView.ItemDecoration() {
 }
 
 class OneFragment : Fragment() {
+    val datas = mutableListOf<Person>()
+    private lateinit var adapter: MyAdapter1
+    private fun addContact() {
+        val intent = Intent(Intent.ACTION_INSERT)
+            .setType(ContactsContract.Contacts.CONTENT_TYPE)
+            .putExtra(ContactsContract.Intents.Insert.NAME,"")
+            .putExtra(ContactsContract.Intents.Insert.PHONE, "010")
+            .putExtra(ContactsContract.Intents.Insert.EMAIL, "")
+        startActivity(intent)
+    }
+
+    private fun refreshContacts() {
+        datas.clear()
+
+        // Fetch the contacts again
+        val contactsCursor = fetchContacts()
+        if (contactsCursor != null) {
+            // Process the contacts cursor and add the contacts to the datas list
+            while (contactsCursor.moveToNext()) {
+                val name =
+                    contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                val phoneNumber =
+                    contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                val email =
+                    contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
+
+                val person = Person(name, phoneNumber, email)
+                datas.add(person)
+            }
+            contactsCursor.close()
+
+            adapter.notifyDataSetChanged()
+        } else {
+            // Permission denied, show a message or handle the denial accordingly
+            Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val binding = FragmentOneBinding.inflate(inflater, container, false)
 
-        val datas = mutableListOf<Person>()
-        for(i in 1..9){
-            datas.add(Person("item $i","010-0000-0000","dd@gmail.com"))
+        // Check if the app has permission to read contacts
+        if (hasReadContactsPermission()) {
+            // If the app has permission, fetch the contacts
+            val contactsCursor = fetchContacts()
+            if (contactsCursor != null) {
+                // Process the contacts cursor and add the contacts to the datas list
+                while (contactsCursor.moveToNext()) {
+                    val name =
+                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                    val phoneNumber =
+                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                    val email =
+                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
+
+                    val person = Person(name, phoneNumber, email)
+                    datas.add(person)
+                }
+                contactsCursor.close()
+            }
+        } else {
+            // If the app doesn't have permission, request it
+            requestReadContactsPermission()
         }
 
+        adapter = MyAdapter1(datas, binding)
         binding.recyclerview.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerview.adapter = MyAdapter1(datas, binding)
+        binding.recyclerview.adapter = adapter
         binding.recyclerview.addItemDecoration(MyDecoration(activity as Context))
 
         binding.backButton.setOnClickListener {
             binding.detailInfo.visibility=View.GONE
         }
 
+        binding.addContact.setOnClickListener {
+            addContact()
+            refreshContacts()
+        }
+
         return binding.root
     }
+    private fun hasReadContactsPermission(): Boolean {
+        val permission = Manifest.permission.READ_CONTACTS
+        val result = ContextCompat.checkSelfPermission(requireContext(), permission)
+        return result == PackageManager.PERMISSION_GRANTED
+    }
 
+    private fun requestReadContactsPermission() {
+        val permission = Manifest.permission.READ_CONTACTS
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), 1)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == 1) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, fetch the contacts
+                val contactsCursor = fetchContacts()
+                if (contactsCursor != null) {
+                    // Process the contacts cursor and add the contacts to the datas list
+                    while (contactsCursor.moveToNext()) {
+                        val name =
+                            contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                        val phoneNumber =
+                            contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+                        val email =
+                            contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
+
+                        val person = Person(name, phoneNumber, email)
+                        datas.add(person)
+                    }
+                    contactsCursor.close()
+                }
+            } else {
+                // Permission denied, show a message or handle the denial accordingly
+                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun fetchContacts(): Cursor? {
+        val projection = arrayOf(
+            ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
+            ContactsContract.CommonDataKinds.Phone.NUMBER,
+            ContactsContract.CommonDataKinds.Email.DATA
+        )
+
+        val sortOrder = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
+
+        val selection =
+            "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} IS NOT NULL AND ${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} != ''"
+
+        val cursor = requireContext().contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            projection,
+            selection,
+            null,
+            sortOrder
+        )
+
+        if (cursor?.columnCount ?: 0 <= 0) {
+            // No columns found in the cursor
+            cursor?.close()
+            return null
+        }
+
+        return cursor
+    }
 }
