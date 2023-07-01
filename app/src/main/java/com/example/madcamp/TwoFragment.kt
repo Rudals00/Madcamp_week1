@@ -74,26 +74,6 @@ class MyAdapter2(val datas: MutableList<Int>): RecyclerView.Adapter<RecyclerView
     }
 }
 
-class MyDecoration2(val datas: MutableList<Int>): RecyclerView.ItemDecoration() {
-
-    // 각 항목을 꾸미기 위해 호출
-    override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
-    ) {
-        super.getItemOffsets(outRect, view, parent, state)
-        // 동일한 간격 설정
-        outRect.set(0, 0, 0, 0)
-
-        view.setBackgroundColor(Color.parseColor("#28a0ff"))
-        ViewCompat.setElevation(view, 20.0f)
-
-    }
-}
-
-
 class TwoFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -110,8 +90,7 @@ class TwoFragment : Fragment() {
         val gridLayoutManager = GridLayoutManager(activity, 3) // Grid size를 3로 설정했습니다.
         binding.recyclerview.layoutManager = gridLayoutManager
         binding.recyclerview.adapter = MyAdapter2(datas)
-        binding.recyclerview.addItemDecoration(MyDecoration2(datas))
 
         return binding.root
     }
-    }
+}
