@@ -111,7 +111,8 @@ class MyDecoration(val context: Context): RecyclerView.ItemDecoration() {
 
 class OneFragment : Fragment() {
     val datas = mutableListOf<Person>()
-    private lateinit var adapter: MyAdapter1
+    private var adapter: MyAdapter1? = null
+
     private fun addContact() {
         val intent = Intent(Intent.ACTION_INSERT)
             .setType(ContactsContract.Contacts.CONTENT_TYPE)
@@ -140,14 +141,18 @@ class OneFragment : Fragment() {
                 datas.add(person)
             }
             contactsCursor.close()
+            Log.d("CHAN","refresh")
 
-            adapter.notifyDataSetChanged()
+            adapter?.notifyDataSetChanged()
         } else {
             // Permission denied, show a message or handle the denial accordingly
             Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
         }
     }
-
+    override fun onResume() {
+        super.onResume()
+        refreshContacts()
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -189,9 +194,7 @@ class OneFragment : Fragment() {
 
         binding.addContact.setOnClickListener {
             addContact()
-            refreshContacts()
         }
-
         return binding.root
     }
     private fun hasReadContactsPermission(): Boolean {
@@ -203,37 +206,6 @@ class OneFragment : Fragment() {
     private fun requestReadContactsPermission() {
         val permission = Manifest.permission.READ_CONTACTS
         ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), 1)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        if (requestCode == 1) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, fetch the contacts
-                val contactsCursor = fetchContacts()
-                if (contactsCursor != null) {
-                    // Process the contacts cursor and add the contacts to the datas list
-                    while (contactsCursor.moveToNext()) {
-                        val name =
-                            contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-                        val phoneNumber =
-                            contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                        val email =
-                            contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
-
-                        val person = Person(name, phoneNumber, email)
-                        datas.add(person)
-                    }
-                    contactsCursor.close()
-                }
-            } else {
-                // Permission denied, show a message or handle the denial accordingly
-                Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     private fun fetchContacts(): Cursor? {

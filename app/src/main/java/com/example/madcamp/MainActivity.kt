@@ -20,6 +20,19 @@ class MainActivity : AppCompatActivity() {
         override fun createFragment(position: Int): Fragment = fragments[position]
     }
 
+    fun tabSetting(tab: TabLayout.Tab, position: Int) {
+        if (position == 0) {
+            tab.text = "Contacts"
+            tab.setIcon(R.drawable.contacts_icon)
+        } else if (position == 1) {
+            tab.text = "Gallery"
+            tab.setIcon(R.drawable.gallery_icon)
+        } else {
+            tab.text = "TAB3"
+            tab.setIcon(R.drawable.round_button_1)
+        }
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
@@ -28,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         binding.viewpager.adapter = MyFragmentPagerAdapter(this)
 
         TabLayoutMediator(binding.tabs,binding.viewpager){
-                tab, position-> tab.text = if(position==0) "Contacts" else if(position==1) "Gallery" else "TAB3"
+                tab, position-> tabSetting(tab, position)
         }.attach()
 
         // 툴바 적용
