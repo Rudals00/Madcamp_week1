@@ -22,9 +22,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp.databinding.FragmentTwoBinding
 import com.example.madcamp.databinding.ItemRecyclerview2Binding
 import android.Manifest
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import androidx.core.view.ViewCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
@@ -135,6 +139,7 @@ class TwoFragment : Fragment() {
         val gridLayoutManager = GridLayoutManager(activity, 3)
         binding.recyclerview.layoutManager = gridLayoutManager
         binding.recyclerview.adapter = MyAdapter2(datas)
+        binding.recyclerview.addItemDecoration(MyDecoration2(activity as Context))
 
         binding.floatingActionButton.setOnClickListener {
             // Permission check and request
@@ -173,5 +178,38 @@ class TwoFragment : Fragment() {
                 // Ignore all other requests
             }
         }
+    }
+}
+
+class MyDecoration2(val context: Context): RecyclerView.ItemDecoration() {
+    // 모든 항목이 출력된 후 호출
+    override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
+        super.onDrawOver(canvas, parent, state)
+
+        // 리사이클러 뷰의 크기 계산
+        val width = parent.width
+        val height = parent.height
+    }
+
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        super.getItemOffsets(outRect, view, parent, state)
+
+        // 각 항목의 위치 획득
+        val index = parent.getChildAdapterPosition(view) + 1
+
+//        if(index % 3 == 0){
+//            outRect.set(10, 10, 10, 60)
+//        }else {
+//            outRect.set(10, 10, 10, 0)
+//        }
+        outRect.set(10, 10, 10, 0)
+
+        view.setBackgroundColor(Color.parseColor("#ffffff"))
+        ViewCompat.setElevation(view, 20.0f)
     }
 }

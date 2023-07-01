@@ -76,7 +76,7 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
     }
 }
 
-class MyDecoration(val context: Context): RecyclerView.ItemDecoration() {
+class MyDecoration1(val context: Context): RecyclerView.ItemDecoration() {
     // 모든 항목이 출력된 후 호출
     override fun onDrawOver(canvas: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         super.onDrawOver(canvas, parent, state)
@@ -104,8 +104,8 @@ class MyDecoration(val context: Context): RecyclerView.ItemDecoration() {
 //        }
         outRect.set(10, 10, 10, 0)
 
-        view.setBackgroundColor(Color.parseColor("#28a0ff"))
-        ViewCompat.setElevation(view, 20.0f)
+        view.setBackgroundColor(Color.parseColor("#ffffff"))
+        ViewCompat.setElevation(view, 5.0f)
     }
 }
 
@@ -186,7 +186,7 @@ class OneFragment : Fragment() {
         adapter = MyAdapter1(datas, binding)
         binding.recyclerview.layoutManager = LinearLayoutManager(activity)
         binding.recyclerview.adapter = adapter
-        binding.recyclerview.addItemDecoration(MyDecoration(activity as Context))
+        binding.recyclerview.addItemDecoration(MyDecoration1(activity as Context))
 
         binding.backButton.setOnClickListener {
             binding.detailInfo.visibility=View.GONE
