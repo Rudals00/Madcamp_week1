@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -66,6 +67,11 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
                 initTime = System.currentTimeMillis()
                 return true // 키 이벤트 무시
+            }
+            else
+            {
+                ActivityCompat.finishAffinity(this)
+                System.exit(0)
             }
         }
         return super.onKeyDown(keyCode, event) // 키 이벤트 처리
