@@ -39,6 +39,7 @@ import androidx.core.view.ViewCompat
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.example.madcamp.databinding.FragmentOneBinding
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -46,7 +47,7 @@ import java.util.Locale
 
 class MyViewHolder2(val binding: ItemRecyclerview2Binding) :
     RecyclerView.ViewHolder(binding.root)
-class MyAdapter2(val datas: MutableList<Any>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MyAdapter2(val datas: MutableList<Any>,val fragmentBinding: FragmentTwoBinding): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder2(ItemRecyclerview2Binding.inflate(
             LayoutInflater.from(parent.context), parent, false))
@@ -150,6 +151,11 @@ class MyAdapter2(val datas: MutableList<Any>): RecyclerView.Adapter<RecyclerView
             dialog.show()
         }
     }
+
+    fun showImageDialog2(activity: Activity, bitmap: Bitmap) {
+        fragmentBinding.photo.setImageBitmap(bitmap)
+        fragmentBinding.detailInfo.visibility=View.VISIBLE
+    }
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyViewHolder2).binding
         when (val item = datas[position]) {
@@ -164,13 +170,13 @@ class MyAdapter2(val datas: MutableList<Any>): RecyclerView.Adapter<RecyclerView
                 is Int -> {
                     // Local resource image
                     val bitmap = BitmapFactory.decodeResource(it.context.resources, data)
-                    showImageDialog(it.context as Activity, bitmap)
+                    showImageDialog2(it.context as Activity, bitmap)
                 }
                 is Uri -> {
                     // Uri image from gallery
                     val target = object : CustomTarget<Bitmap>() {
                         override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                            showImageDialog(it.context as Activity, resource)
+                            showImageDialog2(it.context as Activity, resource)
                         }
 
                         override fun onLoadCleared(placeholder: Drawable?) {
@@ -185,7 +191,7 @@ class MyAdapter2(val datas: MutableList<Any>): RecyclerView.Adapter<RecyclerView
                 }
                 is Bitmap -> {
                     // Bitmap image from camera
-                    showImageDialog(it.context as Activity, data)
+                    showImageDialog2(it.context as Activity, data)
                 }
                 else -> throw IllegalArgumentException("Unexpected data type")
             }
@@ -228,7 +234,7 @@ class TwoFragment : Fragment() {
 
         val gridLayoutManager = GridLayoutManager(activity, 3)
         binding.recyclerview.layoutManager = gridLayoutManager
-        binding.recyclerview.adapter = MyAdapter2(datas)
+        binding.recyclerview.adapter = MyAdapter2(datas,binding)
         binding.recyclerview.addItemDecoration(MyDecoration2(activity as Context))
 
         binding.floatingActionButton.setOnClickListener {
@@ -244,7 +250,20 @@ class TwoFragment : Fragment() {
             popupMenu.show()
         }
 
+        binding.backButton.setOnClickListener {
+            binding.detailInfo.visibility=View.GONE
+        }
+
+        binding.backButton1.setOnClickListener {
+            binding.detailInfo.visibility=View.GONE
+        }
+
         return binding.root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.detailInfo.visibility=View.GONE
     }
 
     private val cameraResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
