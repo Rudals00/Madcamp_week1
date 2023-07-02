@@ -3,6 +3,7 @@ package com.example.madcamp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -14,6 +15,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    private var initTime = 0L
+
     // 뷰 페이저 어댑터
     class MyFragmentPagerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
         val fragments = listOf(OneFragment(), TwoFragment(), ThreeFragment())
@@ -36,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.viewpager.adapter = MyFragmentPagerAdapter(this)
@@ -49,8 +53,14 @@ class MainActivity : AppCompatActivity() {
 //        setSupportActionBar(binding.toolbar)
     }
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        var initTime = 0L
         if(keyCode == KeyEvent.KEYCODE_BACK){
+            val fragment = (binding.viewpager.adapter as MyFragmentPagerAdapter).fragments[binding.viewpager.currentItem]
+            var flag = 0
+            if (fragment is TwoFragment) {
+                Log.d("chan","dd")
+                flag = fragment.abc()
+                if(flag==1) return true
+            }
             if(System.currentTimeMillis() - initTime > 3000){
                 Toast.makeText(this, "종료하려면 한번 더 누르세요!",
                     Toast.LENGTH_SHORT).show()

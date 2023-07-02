@@ -31,8 +31,10 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.PopupMenu
 import android.widget.RelativeLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
@@ -209,8 +211,15 @@ class TwoFragment : Fragment() {
         private const val READ_STORAGE_PERMISSION_CODE = 101
     }
 
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            // Handle the back button event
+        }
+    }
+
     private lateinit var binding: FragmentTwoBinding
     private var datas = mutableListOf<Any>()
+    private lateinit var callback: OnBackPressedCallback
 
     private val galleryResultLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
         // 선택한 이미지의 Uri를 받아서 처리하는 부분
@@ -220,11 +229,25 @@ class TwoFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        callback.remove()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        callback = object : OnBackPressedCallback(true /* enabled by default */) {
+            override fun handleOnBackPressed() {
+                // Handle the back button event
+                Toast.makeText(context, "Back button pressed in fragment", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, onBackPressedCallback)
         binding = FragmentTwoBinding.inflate(inflater, container, false)
 
         for(i in 1..8){
@@ -306,6 +329,15 @@ class TwoFragment : Fragment() {
                 // Ignore all other requests
             }
         }
+    }
+
+    fun abc(): Int {
+        if (binding.detailInfo.visibility == View.VISIBLE) {
+            Log.d("CHAN","visible")
+            binding.detailInfo.visibility=View.GONE
+            return 1
+        }
+        return 0
     }
 }
 
