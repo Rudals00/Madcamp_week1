@@ -56,11 +56,11 @@ class MainActivity : AppCompatActivity() {
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if(keyCode == KeyEvent.KEYCODE_BACK){
             val fragment = (binding.viewpager.adapter as MyFragmentPagerAdapter).fragments[binding.viewpager.currentItem]
-            var flag = 0
-            if (fragment is TwoFragment) {
-                Log.d("chan","dd")
-                flag = fragment.abc()
-                if(flag==1) return true
+            if (fragment is OneFragment) {
+                if(fragment.backButtonPressed()==1) return true
+            }
+            else if (fragment is TwoFragment) {
+                if(fragment.backButtonPressed()==1) return true
             }
             if(System.currentTimeMillis() - initTime > 3000){
                 Toast.makeText(this, "종료하려면 한번 더 누르세요!",

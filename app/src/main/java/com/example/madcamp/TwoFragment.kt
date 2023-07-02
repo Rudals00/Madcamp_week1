@@ -331,7 +331,7 @@ class TwoFragment : Fragment() {
         }
     }
 
-    fun abc(): Int {
+    fun backButtonPressed(): Int {
         if (binding.detailInfo.visibility == View.VISIBLE) {
             Log.d("CHAN","visible")
             binding.detailInfo.visibility=View.GONE

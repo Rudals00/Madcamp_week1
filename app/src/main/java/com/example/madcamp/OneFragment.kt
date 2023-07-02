@@ -378,4 +378,12 @@ class OneFragment : Fragment() {
             null
         )
     }
+    fun backButtonPressed(): Int {
+        if (binding.detailInfo.visibility == View.VISIBLE) {
+            Log.d("CHAN","visible")
+            binding.detailInfo.visibility=View.GONE
+            return 1
+        }
+        return 0
+    }
 }
