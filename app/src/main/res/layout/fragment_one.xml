@@ -24,8 +24,9 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="#ffffff"
+            android:visibility="gone"
             >
-<!--            android:visibility="gone"-->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +38,10 @@
                     android:backgroundTint="#FFFFFF"
                     android:foreground="@drawable/back_icon" />
                 <TextView
+                    android:id="@+id/position"
+                    android:visibility="invisible"
                     android:layout_width="0dp"
+                    android:text="0"
                     android:layout_height="match_parent"
                     android:layout_weight="1"/>
                 <Button
@@ -87,6 +91,7 @@
                     android:layout_weight="1" />
 
                 <TextView
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="박병찬"
@@ -133,17 +138,18 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
                 <Button
-                    android:id="@+id/call_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:backgroundTint="#FFFFFF"
-                    android:foreground="@drawable/back_icon" />
-                <Button
                     android:id="@+id/msg_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="10dp"
                     android:backgroundTint="#FFFFFF"
-                    android:foreground="@drawable/back_icon" />
+                    android:foreground="@drawable/msg_icon" />
+                <Button
+                    android:id="@+id/call_button"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:foreground="@drawable/call_icon" />
             </LinearLayout>
 
             <LinearLayout
@@ -180,10 +186,10 @@
                     android:layout_weight="1" />
                 <Button
                     android:id="@+id/email_button"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
                     android:backgroundTint="#FFFFFF"
-                    android:foreground="@drawable/back_icon" />
+                    android:foreground="@drawable/email_icon" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

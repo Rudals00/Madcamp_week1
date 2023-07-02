@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.util.Log
@@ -33,7 +34,7 @@ import java.util.Random
 
 class MyViewHolder1(val binding: ItemRecyclerview1Binding): RecyclerView.ViewHolder(binding.root)
 
-class Person(val name:String, val phone_number:String,val email:String) {
+class Person(val id:String, val name:String, val phone_number:String,val email:String) {
     var profile_num:Int = 0
     init {
         val random = Random()
@@ -48,9 +49,30 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
     }
 
     fun change_detail(position: Int) {
-
+        when(datas[position].profile_num) {
+            0 ->fragmentBinding.profileData.setBackgroundResource(R.drawable.round_button_1)
+            1 ->fragmentBinding.profileData.setBackgroundResource(R.drawable.round_button_2)
+            2 ->fragmentBinding.profileData.setBackgroundResource(R.drawable.round_button_3)
+            3 ->fragmentBinding.profileData.setBackgroundResource(R.drawable.round_button_4)
+            else ->fragmentBinding.profileData.setBackgroundResource(R.drawable.round_button_5)
+        }
+        fragmentBinding.position.text = datas[position].id
+        fragmentBinding.profileData.text = datas[position].name.substring(0,1)
+        fragmentBinding.name.text=datas[position].name
+        if (datas[position].phone_number == "") {
+            fragmentBinding.phone.visibility=View.GONE
+        } else {
+            fragmentBinding.phoneText.text=datas[position].phone_number
+            fragmentBinding.phone.visibility=View.VISIBLE
+        }
+        if (datas[position].email == "") {
+            fragmentBinding.email.visibility=View.GONE
+        } else {
+            fragmentBinding.emailText.text=datas[position].email
+            fragmentBinding.email.visibility=View.VISIBLE
+        }
         Log.d("chan","clickeditem: ${position}")
-
+        fragmentBinding.detailInfo.visibility=View.VISIBLE
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -69,7 +91,6 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
 
         holder.binding.itemData.setOnClickListener {
             change_detail(position)
-            fragmentBinding.detailInfo.visibility=View.VISIBLE
         }
     }
 
@@ -114,6 +135,7 @@ class MyDecoration1(val context: Context): RecyclerView.ItemDecoration() {
 class OneFragment : Fragment() {
     val datas = mutableListOf<Person>()
     private var adapter: MyAdapter1? = null
+    private lateinit var binding: FragmentOneBinding
 
     private fun addContact() {
         val intent = Intent(Intent.ACTION_INSERT)
@@ -132,14 +154,22 @@ class OneFragment : Fragment() {
         if (contactsCursor != null) {
             // Process the contacts cursor and add the contacts to the datas list
             while (contactsCursor.moveToNext()) {
+                val contactId =
+                    contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
                 val name =
                     contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                 val phoneNumber =
                     contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                val email =
-                    contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
 
-                val person = Person(name, phoneNumber, email)
+                val emailCursor = fetchEmail(contactId)
+                val email = if (emailCursor?.moveToNext() == true) {
+                    emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+                } else {
+                    ""
+                }
+                emailCursor?.close()
+
+                val person = Person(contactId, name, phoneNumber, email)
                 datas.add(person)
             }
             contactsCursor.close()
@@ -151,15 +181,67 @@ class OneFragment : Fragment() {
             Toast.makeText(requireContext(), "Permission denied", Toast.LENGTH_SHORT).show()
         }
     }
+    fun change_detail(position: Int) {
+        when(datas[position].profile_num) {
+            0 ->binding.profileData.setBackgroundResource(R.drawable.round_button_1)
+            1 ->binding.profileData.setBackgroundResource(R.drawable.round_button_2)
+            2 ->binding.profileData.setBackgroundResource(R.drawable.round_button_3)
+            3 ->binding.profileData.setBackgroundResource(R.drawable.round_button_4)
+            else ->binding.profileData.setBackgroundResource(R.drawable.round_button_5)
+        }
+        binding.position.text = datas[position].id
+        binding.profileData.text = datas[position].name.substring(0,1)
+        binding.name.text=datas[position].name
+        if (datas[position].phone_number == "") {
+            binding.phone.visibility=View.GONE
+        } else {
+            binding.phoneText.text=datas[position].phone_number
+            binding.phone.visibility=View.VISIBLE
+        }
+        if (datas[position].email == "") {
+            binding.email.visibility=View.GONE
+        } else {
+            binding.emailText.text=datas[position].email
+            binding.email.visibility=View.VISIBLE
+        }
+        Log.d("chan","clickeditem: ${position}")
+        binding.detailInfo.visibility=View.VISIBLE
+    }
+    fun id2position(id: String): Int {
+        var found = 0
+        var count = 0
+        for (person in datas) {
+            if (person.id == id) {
+                found=1
+                break
+            }
+            count += 1
+        }
+        if (found == 1) {
+            return count
+        } else {
+            return -1
+        }
+    }
+    private fun editUpdate(id: String) {
+        refreshContacts()
+        var position = id2position(id)
+        if (position > -1) {
+            change_detail(position)
+        } else {
+            binding.detailInfo.visibility=View.GONE
+        }
+    }
     override fun onResume() {
         super.onResume()
-        refreshContacts()
+        var num = datas.size
+        editUpdate(binding.position.text.toString())
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding = FragmentOneBinding.inflate(inflater, container, false)
+        binding = FragmentOneBinding.inflate(inflater, container, false)
 
         // Check if the app has permission to read contacts
         if (hasReadContactsPermission()) {
@@ -168,14 +250,22 @@ class OneFragment : Fragment() {
             if (contactsCursor != null) {
                 // Process the contacts cursor and add the contacts to the datas list
                 while (contactsCursor.moveToNext()) {
+                    val contactId =
+                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
                     val name =
                         contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                     val phoneNumber =
                         contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                    val email =
-                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA))
 
-                    val person = Person(name, phoneNumber, email)
+                    val emailCursor = fetchEmail(contactId)
+                    val email = if (emailCursor?.moveToNext() == true) {
+                        emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+                    } else {
+                        ""
+                    }
+                    emailCursor?.close()
+
+                    val person = Person(contactId, name, phoneNumber, email)
                     datas.add(person)
                 }
                 contactsCursor.close()
@@ -192,6 +282,41 @@ class OneFragment : Fragment() {
 
         binding.backButton.setOnClickListener {
             binding.detailInfo.visibility=View.GONE
+        }
+
+        binding.editButton.setOnClickListener {
+            val position = id2position(binding.position.text.toString())
+            val person = datas[position]
+            val intent = Intent(Intent.ACTION_EDIT)
+                .setDataAndType(
+                    Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, person.id),
+                    ContactsContract.Contacts.CONTENT_ITEM_TYPE
+                )
+            startActivity(intent)
+        }
+
+        binding.callButton.setOnClickListener {
+            val position = id2position(binding.position.text.toString())
+            val person = datas[position]
+            val intent = Intent(Intent.ACTION_DIAL)
+                .setData(Uri.parse("tel:${person.phone_number}"))
+            startActivity(intent)
+        }
+
+        binding.msgButton.setOnClickListener {
+            val position = id2position(binding.position.text.toString())
+            val person = datas[position]
+            val intent = Intent(Intent.ACTION_SENDTO)
+                .setData(Uri.parse("smsto:${person.phone_number}"))
+            startActivity(intent)
+        }
+
+        binding.emailButton.setOnClickListener {
+            val position = id2position(binding.position.text.toString())
+            val person = datas[position]
+            val intent = Intent(Intent.ACTION_SENDTO)
+                .setData(Uri.parse("mailto:${person.email}"))
+            startActivity(intent)
         }
 
         binding.addContact.setOnClickListener {
@@ -212,9 +337,10 @@ class OneFragment : Fragment() {
 
     private fun fetchContacts(): Cursor? {
         val projection = arrayOf(
+            ContactsContract.CommonDataKinds.Phone.CONTACT_ID,
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
             ContactsContract.CommonDataKinds.Phone.NUMBER,
-            ContactsContract.CommonDataKinds.Email.DATA
+            ContactsContract.CommonDataKinds.Email.ADDRESS
         )
 
         val sortOrder = "${ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME} ASC"
@@ -237,5 +363,19 @@ class OneFragment : Fragment() {
         }
 
         return cursor
+    }
+    private fun fetchEmail(contactId: String): Cursor? {
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Email.ADDRESS)
+        val selection =
+            "${ContactsContract.CommonDataKinds.Email.CONTACT_ID} = ? AND ${ContactsContract.CommonDataKinds.Email.MIMETYPE} = ?"
+        val selectionArgs = arrayOf(contactId, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+
+        return requireContext().contentResolver.query(
+            ContactsContract.Data.CONTENT_URI,
+            projection,
+            selection,
+            selectionArgs,
+            null
+        )
     }
 }
