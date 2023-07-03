@@ -72,7 +72,7 @@ class ChatAdapter(private val chatMessages: MutableList<Message>) :
             Glide.with(holder.itemView)
                 .asBitmap()  // Request image as Bitmap
                 .load(message.imageUrl)
-                .into(object : CustomTarget<Bitmap>(300, 300) {
+                .into(object : CustomTarget<Bitmap>(200, 200) {
                     override fun onResourceReady(
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?

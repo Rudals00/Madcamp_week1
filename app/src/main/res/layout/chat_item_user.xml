@@ -3,6 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:layout_marginRight="15dp"
+    android:layout_marginLeft="50dp"
+    android:layout_marginBottom="15dp"
+    android:layout_marginTop="15dp"
     android:gravity="end">
 
     <TextView
@@ -12,6 +16,7 @@
         android:padding="8dp"
         android:textColor="@android:color/black"
         android:visibility="visible"
+        android:background="@drawable/round_back"
         android:textSize="16sp"/>
     <ImageView
         android:id="@+id/chat_image_view"
