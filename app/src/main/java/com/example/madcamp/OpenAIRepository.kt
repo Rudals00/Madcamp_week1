@@ -1,14 +1,29 @@
 package com.example.madcamp
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Environment
+import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import com.aallam.openai.api.BetaOpenAI
+import com.aallam.openai.api.audio.TranscriptionRequest
 import com.aallam.openai.api.chat.ChatCompletionRequest
 import com.aallam.openai.api.chat.ChatMessage
 import com.aallam.openai.api.chat.ChatRole
+import com.aallam.openai.api.file.FileSource
+import com.aallam.openai.api.file.FileUpload
+import com.aallam.openai.api.file.Purpose
 import com.aallam.openai.api.model.ModelId
+import com.aallam.openai.client.Audio
 import com.aallam.openai.client.OpenAI
 import com.example.madcamp.Conversation
 import com.example.madcamp.Message
 import com.example.madcamp.MessageStatus
+import okio.FileSystem
+import okio.Path.Companion.toPath
+import okio.Source
 
 @OptIn(BetaOpenAI::class)
 class OpenAIRepository(private val openAI: OpenAI) {
@@ -30,6 +45,18 @@ class OpenAIRepository(private val openAI: OpenAI) {
             isFromUser = chatMessage.role == ChatRole.User,
             messageStatus = MessageStatus.Sent
         )
+    }
+    suspend fun sendVoiceRequest(filePath: String, fileName: String): String {
+        val path = (filePath + fileName).toPath()
+        Log.d("Chan","${(filePath + fileName)}")
+        val audioSource = FileSystem.SYSTEM.source(path)
+        val request = TranscriptionRequest(
+            model = ModelId("whisper-1"),
+            audio = FileSource(name = fileName, source = audioSource),
+        )
+        val transcription = openAI.transcription(request)
+        Log.d("RESULT","${transcription.text}")
+        return transcription.text
     }
 
     private fun Conversation.toChatMessages() = this.list
