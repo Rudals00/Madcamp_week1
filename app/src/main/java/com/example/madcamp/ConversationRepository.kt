@@ -67,7 +67,7 @@ data class Message(
     var text: String,
     val isFromUser: Boolean,
     var messageStatus: MessageStatus = MessageStatus.Sending,
-    val imageUrl: String? = null
+    var imageUrl: String? = null
 )
 
 sealed class MessageStatus {

@@ -11,6 +11,12 @@
         android:layout_height="wrap_content"
         android:padding="8dp"
         android:textColor="@android:color/black"
-
+        android:visibility="visible"
         android:textSize="16sp"/>
+    <ImageView
+        android:id="@+id/chat_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+    </ImageView>
 </LinearLayout>

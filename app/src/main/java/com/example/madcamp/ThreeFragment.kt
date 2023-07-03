@@ -2,6 +2,9 @@ package com.example.madcamp
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.Environment
@@ -11,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -23,6 +27,8 @@ import com.example.madcamp.databinding.FragmentThreeBinding
 import com.aallam.openai.client.OpenAI
 import com.aallam.openai.client.OpenAIConfig
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.target.CustomViewTarget
 import com.example.madcamp.OpenAIRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -32,12 +38,14 @@ import java.io.File
 import java.io.IOException
 import java.util.Date
 import kotlin.time.Duration.Companion.seconds
+import com.bumptech.glide.request.transition.Transition
 
 
 class ChatAdapter(private val chatMessages: MutableList<Message>) :
     RecyclerView.Adapter<ChatAdapter.ChatViewHolder>() {
 
     class ChatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val imageView: ImageView =  itemView.findViewById(R.id.chat_image_view)
         val messageText: TextView = itemView.findViewById(R.id.chat_message_text)
     }
 
@@ -55,14 +63,32 @@ class ChatAdapter(private val chatMessages: MutableList<Message>) :
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
         val message = chatMessages[position]
+
+        // Load the image if there is a URL
         if (!message.imageUrl.isNullOrEmpty()) {
+            holder.messageText.visibility=View.GONE
+            holder.imageView.visibility = View.VISIBLE
             Glide.with(holder.itemView)
+                .asBitmap()  // Request image as Bitmap
                 .load(message.imageUrl)
-                .into(holder.itemView.chat_message_image)
+                .into(object : CustomTarget<Bitmap>(100, 100) {
+                    override fun onResourceReady(
+                        resource: Bitmap,
+                        transition: Transition<in Bitmap>?
+                    ) {
+                        val bitmapDrawable = BitmapDrawable(holder.itemView.resources, resource)
+                        holder.imageView.setImageDrawable(bitmapDrawable)
+                    }
+
+                    override fun onLoadCleared(placeholder: Drawable?) {
+                        holder.imageView.setImageDrawable(placeholder)
+                    }
+                })
         } else {
-            holder.itemView.chat_message_image.setImageDrawable(null)  // clear the image
+            holder.messageText.text = message.text
+            holder.messageText.visibility=View.VISIBLE
+            holder.imageView.visibility = View.GONE
         }
-        holder.messageText.text = chatMessages[position].text
     }
 }
 class ThreeFragment : Fragment() {
@@ -178,12 +204,13 @@ class ThreeFragment : Fragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val imageurl = openAIRepository.sendImageRequest(userInput)
-                        val message_for_image = Message("ai","\n\n\n\n\n\n",false)
+                        val message_for_image = Message("ai","\n\n\n\n\n\n",false,imageUrl=imageurl)
 
                         // Add AI response to the chat
                         withContext(Dispatchers.Main) {
-
+                            chatMessages[chatMessages.size-1].text = message_for_image.text
                             chatMessages[chatMessages.size - 1].messageStatus = MessageStatus.Sent
+                            chatMessages[chatMessages.size - 1].imageUrl = message_for_image.imageUrl
                             chatAdapter.notifyDataSetChanged()
                             binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
                             button_on(binding)
