@@ -71,7 +71,7 @@ class ThreeFragment : Fragment() {
         binding.chatRecyclerview.layoutManager = LinearLayoutManager(context)
         binding.chatRecyclerview.adapter = chatAdapter
         val config = OpenAIConfig(
-            token = "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"
+            token = "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"
         )
 
         val openAI = OpenAI(config)
@@ -80,9 +80,11 @@ class ThreeFragment : Fragment() {
             val userInput = inputChat.text.toString().trim()
             if (userInput.isNotEmpty()) {
                 // Add user message to the chat
-                chatMessages.add(Message("dd",userInput, true))
-
-                // Start a new coroutine for asynchronous work
+                chatMessages.add(Message("dd",userInput, true,MessageStatus.Sent))
+                chatAdapter.notifyDataSetChanged()
+                inputChat.text.clear()
+                    //버튼 비활성화, ai sending 중 처리
+                // art a new coroutine for asynchronous work
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         // Create a new conversation object
@@ -93,16 +95,16 @@ class ThreeFragment : Fragment() {
 
                         // Add AI response to the chat
                         withContext(Dispatchers.Main) {
-                            chatMessages.add(Message("ai",aiResponse.text, false))
+                            chatMessages.add(Message("ai",aiResponse.text, false,MessageStatus.Sent))
                             // Notify adapter about changes
                             chatAdapter.notifyDataSetChanged()
+                            //adapter에서 seding일 경우에 ai sending 띄워놓기
                             // Scroll to the bottom
                             binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
                             // Clear the input field
-                            inputChat.text.clear()
                         }
                     } catch (e: NoChoiceAvailableException) {
-                        // Handle the exception (e.g., show an error message)
+                            //에러처리              // Handle the exception (e.g., show an error message)
                         withContext(Dispatchers.Main) {
                             // TODO: Handle the exception
                         }
