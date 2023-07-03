@@ -104,9 +104,10 @@ class ThreeFragment : Fragment() {
                             // Clear the input field
                         }
                     } catch (e: NoChoiceAvailableException) {
-                            //에러처리              // Handle the exception (e.g., show an error message)
+                        // Handle the exception (e.g., show an error message)
                         withContext(Dispatchers.Main) {
-                            // TODO: Handle the exception
+                            chatMessages.add(Message("ai",text = "ERROR",isFromUser = false))
+                            chatAdapter.notifyDataSetChanged()
                         }
                     }
                 }
