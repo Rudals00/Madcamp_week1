@@ -15,6 +15,10 @@ import com.aallam.openai.api.chat.ChatRole
 import com.aallam.openai.api.file.FileSource
 import com.aallam.openai.api.file.FileUpload
 import com.aallam.openai.api.file.Purpose
+import com.aallam.openai.api.image.ImageCreation
+import com.aallam.openai.api.image.ImageEdit
+import com.aallam.openai.api.image.ImageSize
+import com.aallam.openai.api.image.ImageVariation
 import com.aallam.openai.api.model.ModelId
 import com.aallam.openai.client.Audio
 import com.aallam.openai.client.OpenAI
@@ -57,6 +61,31 @@ class OpenAIRepository(private val openAI: OpenAI) {
         val transcription = openAI.transcription(request)
         Log.d("RESULT","${transcription.text}")
         return transcription.text
+    }
+    suspend fun sendImageRequest(prompt : String): String {
+        val images = openAI.imageURL( // or openAI.imageJSON
+            creation = ImageCreation(
+                prompt = prompt,
+                n = 1,
+                size = ImageSize.is1024x1024
+            )
+        )
+        Log.d("RESULT","${images.first().url}")
+        return images.first().url
+    }
+
+    suspend fun sendImageVarRequest(prompt : String): String {
+        val path = ("/data/data/com.example.madcamp/files/test.png").toPath()
+        val imageSource = FileSystem.SYSTEM.source(path)
+        val images = openAI.imageURL( // or openAI.imageJSON
+            variation = ImageVariation(
+                image = FileSource(name = "test.png", source = imageSource),
+                n = 1,
+                size = ImageSize.is1024x1024
+            )
+        )
+        Log.d("RESULT","${images.first().url}")
+        return images.first().url
     }
 
     private fun Conversation.toChatMessages() = this.list
