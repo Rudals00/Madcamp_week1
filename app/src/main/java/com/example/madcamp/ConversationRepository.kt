@@ -66,7 +66,8 @@ data class Message(
     val id: String = UUID.randomUUID().toString(),
     var text: String,
     val isFromUser: Boolean,
-    var messageStatus: MessageStatus = MessageStatus.Sending
+    var messageStatus: MessageStatus = MessageStatus.Sending,
+    val imageUrl: String? = null
 )
 
 sealed class MessageStatus {

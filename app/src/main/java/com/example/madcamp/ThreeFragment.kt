@@ -22,6 +22,7 @@ import com.aallam.openai.api.http.Timeout
 import com.example.madcamp.databinding.FragmentThreeBinding
 import com.aallam.openai.client.OpenAI
 import com.aallam.openai.client.OpenAIConfig
+import com.bumptech.glide.Glide
 import com.example.madcamp.OpenAIRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +54,14 @@ class ChatAdapter(private val chatMessages: MutableList<Message>) :
     }
 
     override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
+        val message = chatMessages[position]
+        if (!message.imageUrl.isNullOrEmpty()) {
+            Glide.with(holder.itemView)
+                .load(message.imageUrl)
+                .into(holder.itemView.chat_message_image)
+        } else {
+            holder.itemView.chat_message_image.setImageDrawable(null)  // clear the image
+        }
         holder.messageText.text = chatMessages[position].text
     }
 }
@@ -136,6 +145,7 @@ class ThreeFragment : Fragment() {
 
         val inputChat: EditText = binding.inputChat
         val sendButton: Button = binding.sendButton
+        val imageButton: Button = binding.imageButton
 
         val config = OpenAIConfig(
             token = "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" ,
@@ -156,7 +166,41 @@ class ThreeFragment : Fragment() {
 //        binding.stopButton.setOnClickListener {
 //            stopRecording()
 //        }
+        imageButton.setOnClickListener{
+            val userInput = inputChat.text.toString().trim()
+            if(userInput.isNotEmpty()){
+                inputChat.text.clear()
+                button_off(binding)
+                chatMessages.add(Message("dd",userInput, true,MessageStatus.Sent))
+                chatMessages.add(Message("dd","AI is sending.", false,MessageStatus.Sending))
+                chatAdapter.notifyDataSetChanged()
+                binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val imageurl = openAIRepository.sendImageRequest(userInput)
+                        val message_for_image = Message("ai","\n\n\n\n\n\n",false)
 
+                        // Add AI response to the chat
+                        withContext(Dispatchers.Main) {
+
+                            chatMessages[chatMessages.size - 1].messageStatus = MessageStatus.Sent
+                            chatAdapter.notifyDataSetChanged()
+                            binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
+                            button_on(binding)
+                        }
+                    } catch (e: Exception) {
+                        // Handle the exception (e.g., show an error message)
+                        withContext(Dispatchers.Main) {
+                            chatMessages[chatMessages.size - 1].text = "ERROR"
+                            chatMessages[chatMessages.size - 1].messageStatus = MessageStatus.Error
+                            chatAdapter.notifyDataSetChanged()
+                            binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
+                            button_on(binding)
+                        }
+                    }
+                }
+            }
+        }
         sendButton.setOnClickListener {
             val userInput = inputChat.text.toString().trim()
             if (userInput.isNotEmpty()) {
@@ -205,6 +249,17 @@ class ThreeFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun button_off(binding: FragmentThreeBinding) {
+        binding.sendButton.isEnabled=false
+        binding.imageButton.isEnabled=false
+        binding.voiceButton.isEnabled=false
+    }
+    private fun button_on(binding: FragmentThreeBinding) {
+        binding.sendButton.isEnabled=true
+        binding.imageButton.isEnabled=true
+        binding.voiceButton.isEnabled=true
     }
 
     private fun List<Message>.toMessages(): List<Message> {
