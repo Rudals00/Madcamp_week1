@@ -72,7 +72,7 @@ class ChatAdapter(private val chatMessages: MutableList<Message>) :
             Glide.with(holder.itemView)
                 .asBitmap()  // Request image as Bitmap
                 .load(message.imageUrl)
-                .into(object : CustomTarget<Bitmap>(100, 100) {
+                .into(object : CustomTarget<Bitmap>(300, 300) {
                     override fun onResourceReady(
                         resource: Bitmap,
                         transition: Transition<in Bitmap>?
@@ -211,7 +211,7 @@ class ThreeFragment : Fragment() {
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val imageurl = openAIRepository.sendImageRequest(userInput)
-                        val message_for_image = Message("ai","\n\n\n\n\n\n",false,imageUrl=imageurl)
+                        val message_for_image = Message("ai","\n",false,imageUrl=imageurl)
 
                         // Add AI response to the chat
                         withContext(Dispatchers.Main) {
