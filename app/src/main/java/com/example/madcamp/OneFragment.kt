@@ -142,43 +142,12 @@ class OneFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentOneBinding.inflate(inflater, container, false)
-
-        // Check if the app has permission to read contacts
-        if (hasReadContactsPermission()) {
-            // If the app has permission, fetch the contacts
-            val contactsCursor = fetchContacts()
-            if (contactsCursor != null) {
-                // Process the contacts cursor and add the contacts to the datas list
-                while (contactsCursor.moveToNext()) {
-                    val contactId =
-                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
-                    val name =
-                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-                    val phoneNumber =
-                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-
-                    val emailCursor = fetchEmail(contactId)
-                    val email = if (emailCursor?.moveToNext() == true) {
-                        emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
-                    } else {
-                        ""
-                    }
-                    emailCursor?.close()
-
-                    val person = Person(contactId, name, phoneNumber, email)
-                    datas.add(person)
-                }
-                contactsCursor.close()
-            }
-        } else {
-            // If the app doesn't have permission, request it
-            requestReadContactsPermission()
-        }
-
         adapter = MyAdapter1(datas, binding)
         binding.recyclerview.layoutManager = LinearLayoutManager(activity)
         binding.recyclerview.adapter = adapter
         binding.recyclerview.addItemDecoration(MyDecoration1(activity as Context))
+
+        checkPermission()
 
         binding.backButton.setOnClickListener {
             binding.detailInfo.visibility=View.GONE
@@ -223,6 +192,27 @@ class OneFragment : Fragment() {
             addContact()
         }
         return binding.root
+    }
+    override fun onResume() {
+        super.onResume()
+        var num = datas.size
+        editUpdate(binding.position.text.toString())
+    }
+    private fun checkPermission() {
+        val permission = Manifest.permission.READ_CONTACTS
+        val result = ContextCompat.checkSelfPermission(requireContext(), permission)
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            // 카메라 권한이 승인된 상태일 경우
+            refreshContacts()
+        } else {
+            // 카메라 권한이 승인되지 않았을 경우
+            requestPermission()
+        }
+    }
+
+    private fun requestPermission() {
+        val permission = Manifest.permission.READ_CONTACTS
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), 1)
     }
 
     private fun addContact() {
@@ -312,28 +302,13 @@ class OneFragment : Fragment() {
         }
     }
     private fun editUpdate(id: String) {
-        refreshContacts()
+        checkPermission()
         var position = id2position(id)
         if (position > -1) {
             change_detail(position)
         } else {
             binding.detailInfo.visibility=View.GONE
         }
-    }
-    override fun onResume() {
-        super.onResume()
-        var num = datas.size
-        editUpdate(binding.position.text.toString())
-    }
-    private fun hasReadContactsPermission(): Boolean {
-        val permission = Manifest.permission.READ_CONTACTS
-        val result = ContextCompat.checkSelfPermission(requireContext(), permission)
-        return result == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun requestReadContactsPermission() {
-        val permission = Manifest.permission.READ_CONTACTS
-        ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), 1)
     }
 
     private fun fetchContacts(): Cursor? {

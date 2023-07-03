@@ -277,10 +277,6 @@ class TwoFragment : Fragment() {
             binding.detailInfo.visibility=View.GONE
         }
 
-        binding.backButton1.setOnClickListener {
-            binding.detailInfo.visibility=View.GONE
-        }
-
         return binding.root
     }
 
@@ -302,33 +298,22 @@ class TwoFragment : Fragment() {
     }
 
     private fun openCamera() {
-        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        cameraResultLauncher.launch(takePictureIntent)
+        val permission = Manifest.permission.CAMERA
+        val result = ContextCompat.checkSelfPermission(requireContext(), permission)
+        if (result == PackageManager.PERMISSION_GRANTED) {
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            cameraResultLauncher.launch(takePictureIntent)
+        } else {
+            requestCameraPermission()
+        }
     }
     private fun openGallery() {
         galleryResultLauncher.launch("image/*")
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
-        when (requestCode) {
-            READ_STORAGE_PERMISSION_CODE -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    // Permission granted, open gallery
-                    openGallery()
-                } else {
-                    // Permission denied, show a message to the user
-                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
-                }
-                return
-            }
-            else -> {
-                // Ignore all other requests
-            }
-        }
+    private fun requestCameraPermission() {
+        val permission = Manifest.permission.CAMERA
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(permission), 1)
     }
 
     fun backButtonPressed(): Int {

@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/white"/>
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/detail_info"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,8 +48,7 @@
                 android:gravity="center"
                 android:background="#88000000"
                 android:orientation="vertical">
-                <Button
-                    android:id="@+id/back_button"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -70,14 +69,18 @@
 <!--                    android:layout_marginTop="10dp"-->
 <!--                    android:layout_marginBottom="10dp"-->
 <!--                    android:src="@drawable/img2"/>-->
-                <Button
-                    android:id="@+id/back_button1"
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"/>
             </LinearLayout>
-        </LinearLayout>
+            <Button
+                android:id="@+id/back_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"/>
+        </RelativeLayout>
     </RelativeLayout>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
