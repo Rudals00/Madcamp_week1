@@ -36,8 +36,8 @@ class MainActivity : AppCompatActivity() {
             tab.text = "Gallery"
             tab.setIcon(R.drawable.gallery_icon)
         } else {
-            tab.text = "TAB3"
-            tab.setIcon(R.drawable.round_button_1)
+            tab.text = "GPT"
+            tab.setIcon(R.drawable.gpt_icon)
         }
 
     }
