@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.aallam.openai.api.http.Timeout
 import com.example.madcamp.databinding.FragmentThreeBinding
 import com.aallam.openai.client.OpenAI
 import com.aallam.openai.client.OpenAIConfig
@@ -18,6 +19,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.IOException
+import kotlin.time.Duration.Companion.seconds
 
 
 class ChatAdapter(private val chatMessages: MutableList<Message>) :
@@ -71,7 +74,8 @@ class ThreeFragment : Fragment() {
         binding.chatRecyclerview.layoutManager = LinearLayoutManager(context)
         binding.chatRecyclerview.adapter = chatAdapter
         val config = OpenAIConfig(
-            token = "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"
+            token = "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" ,
+            timeout = Timeout(socket = 10.seconds)
         )
 
         val openAI = OpenAI(config)
@@ -83,7 +87,7 @@ class ThreeFragment : Fragment() {
                 chatMessages.add(Message("dd",userInput, true,MessageStatus.Sent))
                 chatAdapter.notifyDataSetChanged()
                 inputChat.text.clear()
-                    //버튼 비활성화, ai sending 중 처리
+                //버튼 비활성화, ai sending 중 처리
                 // art a new coroutine for asynchronous work
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
@@ -98,12 +102,11 @@ class ThreeFragment : Fragment() {
                             chatMessages.add(Message("ai",aiResponse.text, false,MessageStatus.Sent))
                             // Notify adapter about changes
                             chatAdapter.notifyDataSetChanged()
-                            //adapter에서 seding일 경우에 ai sending 띄워놓기
                             // Scroll to the bottom
                             binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
                             // Clear the input field
                         }
-                    } catch (e: NoChoiceAvailableException) {
+                    } catch (e: Exception) {
                         // Handle the exception (e.g., show an error message)
                         withContext(Dispatchers.Main) {
                             chatMessages.add(Message("ai",text = "ERROR",isFromUser = false))
