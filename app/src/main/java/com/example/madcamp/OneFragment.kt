@@ -137,6 +137,94 @@ class OneFragment : Fragment() {
     private var adapter: MyAdapter1? = null
     private lateinit var binding: FragmentOneBinding
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentOneBinding.inflate(inflater, container, false)
+
+        // Check if the app has permission to read contacts
+        if (hasReadContactsPermission()) {
+            // If the app has permission, fetch the contacts
+            val contactsCursor = fetchContacts()
+            if (contactsCursor != null) {
+                // Process the contacts cursor and add the contacts to the datas list
+                while (contactsCursor.moveToNext()) {
+                    val contactId =
+                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
+                    val name =
+                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+                    val phoneNumber =
+                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+
+                    val emailCursor = fetchEmail(contactId)
+                    val email = if (emailCursor?.moveToNext() == true) {
+                        emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
+                    } else {
+                        ""
+                    }
+                    emailCursor?.close()
+
+                    val person = Person(contactId, name, phoneNumber, email)
+                    datas.add(person)
+                }
+                contactsCursor.close()
+            }
+        } else {
+            // If the app doesn't have permission, request it
+            requestReadContactsPermission()
+        }
+
+        adapter = MyAdapter1(datas, binding)
+        binding.recyclerview.layoutManager = LinearLayoutManager(activity)
+        binding.recyclerview.adapter = adapter
+        binding.recyclerview.addItemDecoration(MyDecoration1(activity as Context))
+
+        binding.backButton.setOnClickListener {
+            binding.detailInfo.visibility=View.GONE
+        }
+
+        binding.editButton.setOnClickListener {
+            val position = id2position(binding.position.text.toString())
+            val person = datas[position]
+            val intent = Intent(Intent.ACTION_EDIT)
+                .setDataAndType(
+                    Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, person.id),
+                    ContactsContract.Contacts.CONTENT_ITEM_TYPE
+                )
+            startActivity(intent)
+        }
+
+        binding.callButton.setOnClickListener {
+            val position = id2position(binding.position.text.toString())
+            val person = datas[position]
+            val intent = Intent(Intent.ACTION_DIAL)
+                .setData(Uri.parse("tel:${person.phone_number}"))
+            startActivity(intent)
+        }
+
+        binding.msgButton.setOnClickListener {
+            val position = id2position(binding.position.text.toString())
+            val person = datas[position]
+            val intent = Intent(Intent.ACTION_SENDTO)
+                .setData(Uri.parse("smsto:${person.phone_number}"))
+            startActivity(intent)
+        }
+
+        binding.emailButton.setOnClickListener {
+            val position = id2position(binding.position.text.toString())
+            val person = datas[position]
+            val intent = Intent(Intent.ACTION_SENDTO)
+                .setData(Uri.parse("mailto:${person.email}"))
+            startActivity(intent)
+        }
+
+        binding.addContact.setOnClickListener {
+            addContact()
+        }
+        return binding.root
+    }
+
     private fun addContact() {
         val intent = Intent(Intent.ACTION_INSERT)
             .setType(ContactsContract.Contacts.CONTENT_TYPE)
@@ -236,93 +324,6 @@ class OneFragment : Fragment() {
         super.onResume()
         var num = datas.size
         editUpdate(binding.position.text.toString())
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentOneBinding.inflate(inflater, container, false)
-
-        // Check if the app has permission to read contacts
-        if (hasReadContactsPermission()) {
-            // If the app has permission, fetch the contacts
-            val contactsCursor = fetchContacts()
-            if (contactsCursor != null) {
-                // Process the contacts cursor and add the contacts to the datas list
-                while (contactsCursor.moveToNext()) {
-                    val contactId =
-                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
-                    val name =
-                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-                    val phoneNumber =
-                        contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-
-                    val emailCursor = fetchEmail(contactId)
-                    val email = if (emailCursor?.moveToNext() == true) {
-                        emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS))
-                    } else {
-                        ""
-                    }
-                    emailCursor?.close()
-
-                    val person = Person(contactId, name, phoneNumber, email)
-                    datas.add(person)
-                }
-                contactsCursor.close()
-            }
-        } else {
-            // If the app doesn't have permission, request it
-            requestReadContactsPermission()
-        }
-
-        adapter = MyAdapter1(datas, binding)
-        binding.recyclerview.layoutManager = LinearLayoutManager(activity)
-        binding.recyclerview.adapter = adapter
-        binding.recyclerview.addItemDecoration(MyDecoration1(activity as Context))
-
-        binding.backButton.setOnClickListener {
-            binding.detailInfo.visibility=View.GONE
-        }
-
-        binding.editButton.setOnClickListener {
-            val position = id2position(binding.position.text.toString())
-            val person = datas[position]
-            val intent = Intent(Intent.ACTION_EDIT)
-                .setDataAndType(
-                    Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, person.id),
-                    ContactsContract.Contacts.CONTENT_ITEM_TYPE
-                )
-            startActivity(intent)
-        }
-
-        binding.callButton.setOnClickListener {
-            val position = id2position(binding.position.text.toString())
-            val person = datas[position]
-            val intent = Intent(Intent.ACTION_DIAL)
-                .setData(Uri.parse("tel:${person.phone_number}"))
-            startActivity(intent)
-        }
-
-        binding.msgButton.setOnClickListener {
-            val position = id2position(binding.position.text.toString())
-            val person = datas[position]
-            val intent = Intent(Intent.ACTION_SENDTO)
-                .setData(Uri.parse("smsto:${person.phone_number}"))
-            startActivity(intent)
-        }
-
-        binding.emailButton.setOnClickListener {
-            val position = id2position(binding.position.text.toString())
-            val person = datas[position]
-            val intent = Intent(Intent.ACTION_SENDTO)
-                .setData(Uri.parse("mailto:${person.email}"))
-            startActivity(intent)
-        }
-
-        binding.addContact.setOnClickListener {
-            addContact()
-        }
-        return binding.root
     }
     private fun hasReadContactsPermission(): Boolean {
         val permission = Manifest.permission.READ_CONTACTS
