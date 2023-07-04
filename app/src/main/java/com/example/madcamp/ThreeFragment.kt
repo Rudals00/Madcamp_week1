@@ -232,6 +232,7 @@ class ThreeFragment : Fragment() {
                 stopRecording()
                 binding.voiceButton.text = "0"
                 binding.voiceButton.foreground = ContextCompat.getDrawable(requireContext(), R.drawable.mic_button)
+                button_off(binding)
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
                         val userInput = openAIRepository.sendVoiceRequest("test.m4a")
