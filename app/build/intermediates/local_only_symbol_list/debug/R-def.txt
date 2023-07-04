@@ -36,6 +36,9 @@ drawable splash_1
 drawable splash_2
 drawable splash_background
 drawable stop_button
+drawable tab1_upper_0
+drawable tab1_upper_1
+drawable tab1_upper_2
 drawable your_image
 font iphon_font
 id back_button
@@ -71,6 +74,7 @@ id profile_data
 id recyclerview
 id rightText
 id send_button
+id tab1_upper
 id tabs
 id toolbar
 id viewpager

@@ -4,6 +4,10 @@
         "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\dialog_image.xml"
     },
     {
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/fragment_one.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/fragment_one.xml"
+    },
+    {
         "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\fragment_three.xml",
         "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\fragment_three.xml"
     },
@@ -18,10 +22,6 @@
     {
         "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\activity_main.xml",
         "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\activity_main.xml"
-    },
-    {
-        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/activity_splash.xml",
-        "source": "com.example.madcamp.app-main-6:/layout/activity_splash.xml"
     },
     {
         "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\item_recyclerview1.xml",

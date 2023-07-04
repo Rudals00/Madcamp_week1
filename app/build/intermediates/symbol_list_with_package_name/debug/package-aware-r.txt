@@ -2534,6 +2534,9 @@ drawable splash_1
 drawable splash_2
 drawable splash_background
 drawable stop_button
+drawable tab1_upper_0
+drawable tab1_upper_1
+drawable tab1_upper_2
 drawable test_custom_background
 drawable test_level_drawable
 drawable tooltip_frame_dark
@@ -2978,6 +2981,7 @@ id stretch
 id submenuarrow
 id submit_area
 id supportScrollUp
+id tab1_upper
 id tabMode
 id tabs
 id tag_accessibility_actions

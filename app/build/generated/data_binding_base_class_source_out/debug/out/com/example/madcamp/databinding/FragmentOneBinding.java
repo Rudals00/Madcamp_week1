@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -75,6 +76,9 @@ public final class FragmentOneBinding implements ViewBinding {
   public final TextView rightText;
 
   @NonNull
+  public final ImageView tab1Upper;
+
+  @NonNull
   public final Toolbar toolbar;
 
   private FragmentOneBinding(@NonNull ConstraintLayout rootView, @NonNull Button backButton,
@@ -83,7 +87,7 @@ public final class FragmentOneBinding implements ViewBinding {
       @NonNull LinearLayout fragment1, @NonNull TextView leftText, @NonNull Button msgButton,
       @NonNull TextView name, @NonNull LinearLayout phone, @NonNull TextView phoneText,
       @NonNull TextView position, @NonNull TextView profileData, @NonNull RecyclerView recyclerview,
-      @NonNull TextView rightText, @NonNull Toolbar toolbar) {
+      @NonNull TextView rightText, @NonNull ImageView tab1Upper, @NonNull Toolbar toolbar) {
     this.rootView = rootView;
     this.backButton = backButton;
     this.callButton = callButton;
@@ -102,6 +106,7 @@ public final class FragmentOneBinding implements ViewBinding {
     this.profileData = profileData;
     this.recyclerview = recyclerview;
     this.rightText = rightText;
+    this.tab1Upper = tab1Upper;
     this.toolbar = toolbar;
   }
 
@@ -234,6 +239,12 @@ public final class FragmentOneBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.tab1_upper;
+      ImageView tab1Upper = ViewBindings.findChildViewById(rootView, id);
+      if (tab1Upper == null) {
+        break missingId;
+      }
+
       id = R.id.toolbar;
       Toolbar toolbar = ViewBindings.findChildViewById(rootView, id);
       if (toolbar == null) {
@@ -242,7 +253,7 @@ public final class FragmentOneBinding implements ViewBinding {
 
       return new FragmentOneBinding((ConstraintLayout) rootView, backButton, callButton, detailInfo,
           editButton, email, emailButton, emailText, fragment1, leftText, msgButton, name, phone,
-          phoneText, position, profileData, recyclerview, rightText, toolbar);
+          phoneText, position, profileData, recyclerview, rightText, tab1Upper, toolbar);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
