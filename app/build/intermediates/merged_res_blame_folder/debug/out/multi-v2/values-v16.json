@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.madcamp.app-mergeDebugResources-2:/values-v16/values-v16.xml",
+            "outputFile": "com.example.madcamp.app-mergeDebugResources-25:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\rlaru\\.gradle\\caches\\transforms-3\\0a0881779edde47445eef6cead10359b\\transformed\\core-1.8.0\\res\\values-v16\\values-v16.xml",
+                    "source": "/Users/parkbyeongchan/.gradle/caches/transforms-3/0a0881779edde47445eef6cead10359b/transformed/core-1.8.0/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\rlaru\\.gradle\\caches\\transforms-3\\121d50f97c55fcb7d4d7c4a4927ded80\\transformed\\appcompat-1.4.1\\res\\values-v16\\values-v16.xml",
+                    "source": "/Users/parkbyeongchan/.gradle/caches/transforms-3/121d50f97c55fcb7d4d7c4a4927ded80/transformed/appcompat-1.4.1/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
