@@ -3254,23 +3254,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Madcamp\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "17,122",
-                        "endColumns": "44,69",
-                        "endOffsets": "57,187"
-                    },
-                    "to": {
-                        "startLines": "1595,1608",
-                        "startColumns": "4,4",
-                        "startOffsets": "97035,98492",
-                        "endColumns": "44,69",
-                        "endOffsets": "97075,98557"
-                    }
-                },
-                {
                     "source": "C:\\Users\\rlaru\\.gradle\\caches\\transforms-3\\6b9d7d53685a83aff91dc89edb74df10\\transformed\\coordinatorlayout-1.1.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,6,16",
@@ -3290,20 +3273,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Madcamp\\app\\src\\main\\res\\values\\colors.xml",
+                    "source": "C:\\Madcamp1\\app\\src\\main\\res\\values\\ic_launcher_background.xml",
                     "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "57,100",
-                        "endColumns": "41,41",
-                        "endOffsets": "94,137"
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "57",
+                        "endColumns": "56",
+                        "endOffsets": "109"
                     },
                     "to": {
-                        "startLines": "586,819",
-                        "startColumns": "4,4",
-                        "startOffsets": "29680,46340",
-                        "endColumns": "41,41",
-                        "endOffsets": "29717,46377"
+                        "startLines": "644",
+                        "startColumns": "4",
+                        "startOffsets": "33716",
+                        "endColumns": "56",
+                        "endOffsets": "33768"
                     }
                 },
                 {
@@ -3326,23 +3309,6 @@
                     }
                 },
                 {
-                    "source": "C:\\Madcamp\\app\\src\\main\\res\\values\\ic_launcher_background.xml",
-                    "from": {
-                        "startLines": "2",
-                        "startColumns": "4",
-                        "startOffsets": "57",
-                        "endColumns": "56",
-                        "endOffsets": "109"
-                    },
-                    "to": {
-                        "startLines": "644",
-                        "startColumns": "4",
-                        "startOffsets": "33716",
-                        "endColumns": "56",
-                        "endOffsets": "33768"
-                    }
-                },
-                {
                     "source": "C:\\Users\\rlaru\\.gradle\\caches\\transforms-3\\c15ecc4d28a1b940965bbda38f1544c0\\transformed\\viewpager2-1.0.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -3359,6 +3325,23 @@
                         "endLines": "11883",
                         "endColumns": "24",
                         "endOffsets": "671022"
+                    }
+                },
+                {
+                    "source": "C:\\Madcamp1\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "17,122",
+                        "endColumns": "44,69",
+                        "endOffsets": "57,187"
+                    },
+                    "to": {
+                        "startLines": "1595,1608",
+                        "startColumns": "4,4",
+                        "startOffsets": "97035,98492",
+                        "endColumns": "44,69",
+                        "endOffsets": "97075,98557"
                     }
                 },
                 {
@@ -3576,22 +3559,20 @@
                     }
                 },
                 {
-                    "source": "C:\\Madcamp\\app\\src\\main\\res\\values\\themes.xml",
+                    "source": "C:\\Madcamp1\\app\\src\\main\\res\\values\\colors.xml",
                     "from": {
-                        "startLines": "2,17",
+                        "startLines": "2,3",
                         "startColumns": "4,4",
-                        "startOffsets": "102,887",
-                        "endLines": "15,17",
-                        "endColumns": "12,62",
-                        "endOffsets": "879,945"
+                        "startOffsets": "57,100",
+                        "endColumns": "41,41",
+                        "endOffsets": "94,137"
                     },
                     "to": {
-                        "startLines": "2076,5556",
+                        "startLines": "586,819",
                         "startColumns": "4,4",
-                        "startOffsets": "136334,373447",
-                        "endLines": "2089,5556",
-                        "endColumns": "12,61",
-                        "endOffsets": "136898,373504"
+                        "startOffsets": "29680,46340",
+                        "endColumns": "41,41",
+                        "endOffsets": "29717,46377"
                     }
                 },
                 {
@@ -3611,6 +3592,25 @@
                         "endLines": "115,118,914,9871",
                         "endColumns": "55,47,51,24",
                         "endOffsets": "5732,5888,52703,599617"
+                    }
+                },
+                {
+                    "source": "C:\\Madcamp1\\app\\src\\main\\res\\values\\themes.xml",
+                    "from": {
+                        "startLines": "2,17",
+                        "startColumns": "4,4",
+                        "startOffsets": "102,887",
+                        "endLines": "15,17",
+                        "endColumns": "12,62",
+                        "endOffsets": "879,945"
+                    },
+                    "to": {
+                        "startLines": "2076,5556",
+                        "startColumns": "4,4",
+                        "startOffsets": "136334,373447",
+                        "endLines": "2089,5556",
+                        "endColumns": "12,61",
+                        "endOffsets": "136898,373504"
                     }
                 },
                 {
@@ -5569,24 +5569,7 @@
             "outputFile": "com.example.madcamp.app-merged_res-4:/values-night-v8_values-night-v8.arsc.flat",
             "map": [
                 {
-                    "source": "C:\\Users\\rlaru\\.gradle\\caches\\transforms-3\\121d50f97c55fcb7d4d7c4a4927ded80\\transformed\\appcompat-1.4.1\\res\\values-night-v8\\values-night-v8.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,125,209,293,389,491,593,687",
-                        "endColumns": "69,83,83,95,101,101,93,88",
-                        "endOffsets": "120,204,288,384,486,588,682,771"
-                    },
-                    "to": {
-                        "startLines": "6,7,8,9,10,11,12,37",
-                        "startColumns": "4,4,4,4,4,4,4,4",
-                        "startOffsets": "170,240,324,408,504,606,708,3456",
-                        "endColumns": "69,83,83,95,101,101,93,88",
-                        "endOffsets": "235,319,403,499,601,703,797,3540"
-                    }
-                },
-                {
-                    "source": "C:\\Madcamp\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "source": "C:\\Madcamp1\\app\\src\\main\\res\\values-night\\themes.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -5602,6 +5585,23 @@
                         "endLines": "5",
                         "endColumns": "12",
                         "endOffsets": "165"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\rlaru\\.gradle\\caches\\transforms-3\\121d50f97c55fcb7d4d7c4a4927ded80\\transformed\\appcompat-1.4.1\\res\\values-night-v8\\values-night-v8.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,125,209,293,389,491,593,687",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "120,204,288,384,486,588,682,771"
+                    },
+                    "to": {
+                        "startLines": "6,7,8,9,10,11,12,37",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "170,240,324,408,504,606,708,3456",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "235,319,403,499,601,703,797,3540"
                     }
                 },
                 {

@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
 MERGED from [androidx.databinding:viewbinding:8.0.2] C:\Users\rlaru\.gradle\caches\transforms-3\212b8663216c3303877a9592f1111331\transformed\viewbinding-8.0.2\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.core:core-ktx:1.8.0] C:\Users\rlaru\.gradle\caches\transforms-3\a165204f3c8b34e6054d7263ace1991b\transformed\core-ktx-1.8.0\AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.material:material:1.5.0] C:\Users\rlaru\.gradle\caches\transforms-3\5159941d9342d8d6891a430a12cdd97e\transformed\material-1.5.0\AndroidManifest.xml:17:1-24:12
@@ -54,37 +54,37 @@ MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] C:\User
 MERGED from [androidx.print:print:1.0.0] C:\Users\rlaru\.gradle\caches\transforms-3\a2ccfa0bde433fada302e6a7d9fe61c0\transformed\print-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\rlaru\.gradle\caches\transforms-3\c6cef2d4d5ff38b85e089c1f761d788a\transformed\interpolator-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\rlaru\.gradle\caches\transforms-3\b3e421bc3a7a9eb6e14a90678a9c6ada\transformed\annotation-experimental-1.1.0\AndroidManifest.xml:17:1-24:12
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
 	package
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
 	android:versionName
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
 	xmlns:tools
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:3:5-51
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:1-51:12
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:1-51:12
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:2:11-69
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:2:11-69
 uses-feature#android.hardware.camera
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:5:5-7:36
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:5:5-7:36
 	android:required
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:7:9-33
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:7:9-33
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:6:9-47
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:6:9-47
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:12:5-80
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:12:5-80
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:12:22-77
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:12:22-77
 application
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:13:5-43:19
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:13:5-43:19
 MERGED from [com.google.android.material:material:1.5.0] C:\Users\rlaru\.gradle\caches\transforms-3\5159941d9342d8d6891a430a12cdd97e\transformed\material-1.5.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.5.0] C:\Users\rlaru\.gradle\caches\transforms-3\5159941d9342d8d6891a430a12cdd97e\transformed\material-1.5.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.3] C:\Users\rlaru\.gradle\caches\transforms-3\091f1829dd27d209ddf7da9f243a54da\transformed\constraintlayout-2.1.3\AndroidManifest.xml:9:5-20
@@ -106,73 +106,73 @@ MERGED from [androidx.startup:startup-runtime:1.0.0] C:\Users\rlaru\.gradle\cach
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.8.0] C:\Users\rlaru\.gradle\caches\transforms-3\0a0881779edde47445eef6cead10359b\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
 	android:supportsRtl
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:20:9-35
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:20:9-35
 	android:label
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:18:9-41
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:18:9-41
 	android:fullBackupContent
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:16:9-54
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:16:9-54
 	android:roundIcon
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:19:9-54
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:19:9-54
 	tools:targetApi
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:22:9-29
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:22:9-29
 	android:icon
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:17:9-43
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:17:9-43
 	android:allowBackup
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:14:9-35
 	android:theme
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:21:9-45
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:21:9-45
 	android:dataExtractionRules
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:15:9-65
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:15:9-65
 activity#com.example.madcamp.SplashActivity
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:23:9-33:20
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:23:9-33:20
 	android:screenOrientation
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:26:13-49
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:26:13-49
 	android:exported
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:27:13-36
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:27:13-36
 	android:theme
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:25:13-49
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:25:13-49
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:24:13-43
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:24:13-43
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:28:13-32:29
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:28:13-32:29
 action#android.intent.action.MAIN
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:29:17-69
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:29:17-69
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:29:25-66
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:29:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:31:17-77
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:31:17-77
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:31:27-74
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:31:27-74
 activity#com.example.madcamp.MainActivity
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:34:9-42:20
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:34:9-42:20
 	android:exported
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:36:13-36
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:36:13-36
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:35:13-41
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:35:13-41
 uses-permission#android.permission.READ_CONTACTS
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:44:5-72
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:44:5-72
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:44:22-69
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:44:22-69
 uses-permission#android.permission.CAMERA
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:45:5-65
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:45:5-65
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:45:22-62
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:45:22-62
 uses-permission#android.permission.INTERNET
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:46:5-67
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:46:5-67
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:46:22-64
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:46:22-64
 uses-permission#android.permission.RECORD_AUDIO
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:47:5-71
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:47:5-71
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:47:22-68
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:47:22-68
 uses-permission#android.permission.MANAGE_EXTERNAL_STORAGE
-ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:49:5-82
+ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:49:5-82
 	android:name
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml:49:22-79
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml:49:22-79
 uses-sdk
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
 MERGED from [androidx.databinding:viewbinding:8.0.2] C:\Users\rlaru\.gradle\caches\transforms-3\212b8663216c3303877a9592f1111331\transformed\viewbinding-8.0.2\AndroidManifest.xml:5:5-44
 MERGED from [androidx.databinding:viewbinding:8.0.2] C:\Users\rlaru\.gradle\caches\transforms-3\212b8663216c3303877a9592f1111331\transformed\viewbinding-8.0.2\AndroidManifest.xml:5:5-44
 MERGED from [androidx.core:core-ktx:1.8.0] C:\Users\rlaru\.gradle\caches\transforms-3\a165204f3c8b34e6054d7263ace1991b\transformed\core-ktx-1.8.0\AndroidManifest.xml:5:5-7:41
@@ -273,16 +273,16 @@ MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\rlaru\.gradle\ca
 MERGED from [androidx.interpolator:interpolator:1.0.0] C:\Users\rlaru\.gradle\caches\transforms-3\c6cef2d4d5ff38b85e089c1f761d788a\transformed\interpolator-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\rlaru\.gradle\caches\transforms-3\b3e421bc3a7a9eb6e14a90678a9c6ada\transformed\annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.annotation:annotation-experimental:1.1.0] C:\Users\rlaru\.gradle\caches\transforms-3\b3e421bc3a7a9eb6e14a90678a9c6ada\transformed\annotation-experimental-1.1.0\AndroidManifest.xml:20:5-22:41
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
-INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
-		ADDED from C:\Madcamp\app\src\main\AndroidManifest.xml
-		INJECTED from C:\Madcamp\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+		ADDED from C:\Madcamp1\app\src\main\AndroidManifest.xml
+		INJECTED from C:\Madcamp1\app\src\main\AndroidManifest.xml
 provider#androidx.startup.InitializationProvider
 ADDED from [androidx.emoji2:emoji2:1.0.0] C:\Users\rlaru\.gradle\caches\transforms-3\24b0a6bba62444cd3d3d7bebbf383523\transformed\emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
 MERGED from [androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\rlaru\.gradle\caches\transforms-3\75fde1ec4c6a471165f47d14bffe17ba\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:26:9-34:20

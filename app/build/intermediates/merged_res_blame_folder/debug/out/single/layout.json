@@ -1,50 +1,46 @@
 [
     {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\dialog_image.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\dialog_image.xml"
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/fragment_three.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/fragment_three.xml"
+    },
+    {
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/dialog_image.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/dialog_image.xml"
+    },
+    {
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/chat_item_user.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/chat_item_user.xml"
+    },
+    {
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/item_recyclerview1.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/item_recyclerview1.xml"
     },
     {
         "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/fragment_one.xml",
         "source": "com.example.madcamp.app-main-6:/layout/fragment_one.xml"
     },
     {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\fragment_three.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\fragment_three.xml"
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/gridlayout.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/gridlayout.xml"
     },
     {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\gridlayout.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\gridlayout.xml"
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/item_recyclerview2.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/item_recyclerview2.xml"
     },
     {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\activity_splash.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\activity_splash.xml"
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/chat_item_ai.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/chat_item_ai.xml"
     },
     {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\activity_main.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\activity_main.xml"
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/activity_splash.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/activity_splash.xml"
     },
     {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\item_recyclerview1.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\item_recyclerview1.xml"
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/fragment_two.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/fragment_two.xml"
     },
     {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\fragment_one.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\fragment_one.xml"
-    },
-    {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\item_recyclerview2.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\item_recyclerview2.xml"
-    },
-    {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\chat_item_ai.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\chat_item_ai.xml"
-    },
-    {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\chat_item_user.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\chat_item_user.xml"
-    },
-    {
-        "merged": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-mergeDebugResources-3:\\layout\\fragment_two.xml",
-        "source": "C:\\Users\\rlaru\\.gradle\\daemon\\8.0.2\\com.example.madcamp.app-main-6:\\layout\\fragment_two.xml"
+        "merged": "com.example.madcamp.app-mergeDebugResources-3:/layout/activity_main.xml",
+        "source": "com.example.madcamp.app-main-6:/layout/activity_main.xml"
     }
 ]
