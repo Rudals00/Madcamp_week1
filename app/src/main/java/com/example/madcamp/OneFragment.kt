@@ -75,6 +75,7 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
         }
         Log.d("chan","clickeditem: ${position}")
         fragmentBinding.detailInfo.visibility=View.VISIBLE
+        fragmentBinding.toolbar.visibility=View.GONE
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -167,6 +168,7 @@ class OneFragment : Fragment() {
         checkPermission()
 
         binding.backButton.setOnClickListener {
+            binding.toolbar.visibility=View.VISIBLE
             binding.detailInfo.visibility=View.GONE
         }
 
@@ -330,6 +332,7 @@ class OneFragment : Fragment() {
             change_detail(position)
         } else {
             binding.detailInfo.visibility=View.GONE
+            binding.toolbar.visibility=View.VISIBLE
         }
     }
 
@@ -380,6 +383,7 @@ class OneFragment : Fragment() {
         if (binding.detailInfo.visibility == View.VISIBLE) {
             Log.d("CHAN","visible")
             binding.detailInfo.visibility=View.GONE
+            binding.toolbar.visibility=View.VISIBLE
             return 1
         }
         return 0
