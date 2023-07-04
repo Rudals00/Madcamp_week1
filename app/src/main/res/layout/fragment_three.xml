@@ -32,6 +32,18 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:text="Send" />
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="start" />
+        <Button
+            android:id="@+id/stop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="Stop" />
 
     </LinearLayout>
 
