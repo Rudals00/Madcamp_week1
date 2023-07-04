@@ -50,9 +50,9 @@ class OpenAIRepository(private val openAI: OpenAI) {
             messageStatus = MessageStatus.Sent
         )
     }
-    suspend fun sendVoiceRequest(filePath: String, fileName: String): String {
+    suspend fun sendVoiceRequest(fileName: String): String {
+        val filePath = "/data/data/com.example.madcamp/files/"
         val path = (filePath + fileName).toPath()
-        Log.d("Chan","${(filePath + fileName)}")
         val audioSource = FileSystem.SYSTEM.source(path)
         val request = TranscriptionRequest(
             model = ModelId("whisper-1"),

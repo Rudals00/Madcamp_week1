@@ -17,6 +17,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -186,12 +187,18 @@ class ThreeFragment : Fragment() {
         binding.chatRecyclerview.layoutManager = LinearLayoutManager(context)
         binding.chatRecyclerview.adapter = chatAdapter
 
-//        binding.startButton.setOnClickListener {
-//            checkPermission()
-//        }
-//        binding.stopButton.setOnClickListener {
-//            stopRecording()
-//        }
+        binding.voiceButton.setOnClickListener {
+            if (binding.voiceButton.text == "0") {
+                checkPermission()
+                binding.voiceButton.text = "1"
+                binding.voiceButton.foreground = ContextCompat.getDrawable(requireContext(), R.drawable.stop_button)
+            } else {
+                stopRecording()
+                binding.voiceButton.text = "0"
+                binding.voiceButton.foreground = ContextCompat.getDrawable(requireContext(), R.drawable.mic_button)
+            }
+        }
+
         imageButton.setOnClickListener{
             val userInput = inputChat.text.toString().trim()
             if(userInput.isNotEmpty()){
@@ -246,7 +253,7 @@ class ThreeFragment : Fragment() {
                         if(!file.exists()) {
                             file.mkdirs()
                         }
-                        val test = openAIRepository.sendVoiceRequest("/data/data/com.example.madcamp/files/","test.m4a")
+                        val test = openAIRepository.sendVoiceRequest("test.m4a")
 
                         val url = openAIRepository.sendImageVarRequest(userInput)
                         // Create a new conversation object
