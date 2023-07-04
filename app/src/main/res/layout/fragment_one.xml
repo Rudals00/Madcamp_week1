@@ -179,7 +179,8 @@
                             android:layout_height="50dp"
                             android:layout_marginRight="10dp"
                             android:backgroundTint="#FFFFFF"
-                            android:foreground="@drawable/msg_icon" />
+                            android:foreground="@drawable/msg_icon"
+                            />
                         <Button
                             android:id="@+id/call_button"
                             android:layout_width="50dp"
