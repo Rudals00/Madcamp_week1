@@ -237,8 +237,10 @@ class ThreeFragment : Fragment() {
                         val userInput = openAIRepository.sendVoiceRequest("test.m4a")
                         chatMessages.add(Message("dd",userInput, true,MessageStatus.Sent))
                         chatMessages.add(Message("dd","AI is sending.", false,MessageStatus.Sending))
-                        chatAdapter.notifyDataSetChanged()
-                        binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
+                        withContext(Dispatchers.Main) {
+                            chatAdapter.notifyDataSetChanged()
+                            binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
+                        }
                         val conversation = Conversation(listOf(Message(text = userInput, isFromUser = true)))
 
                         // Send chat request and get AI response
