@@ -150,12 +150,12 @@ class ThreeFragment : Fragment() {
         binding.chatRecyclerview.layoutManager = LinearLayoutManager(context)
         binding.chatRecyclerview.adapter = chatAdapter
 
-        binding.startButton.setOnClickListener {
-            checkPermission()
-        }
-        binding.stopButton.setOnClickListener {
-            stopRecording()
-        }
+//        binding.startButton.setOnClickListener {
+//            checkPermission()
+//        }
+//        binding.stopButton.setOnClickListener {
+//            stopRecording()
+//        }
 
         sendButton.setOnClickListener {
             val userInput = inputChat.text.toString().trim()
@@ -176,6 +176,8 @@ class ThreeFragment : Fragment() {
                             file.mkdirs()
                         }
                         val test = openAIRepository.sendVoiceRequest("/data/data/com.example.madcamp/files/","test.m4a")
+
+                        val url = openAIRepository.sendImageVarRequest(userInput)
                         // Create a new conversation object
                         val conversation = Conversation(listOf(Message(text = userInput, isFromUser = true)))
 
