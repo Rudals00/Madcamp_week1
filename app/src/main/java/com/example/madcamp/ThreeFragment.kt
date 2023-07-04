@@ -187,18 +187,6 @@ class ThreeFragment : Fragment() {
         binding.chatRecyclerview.layoutManager = LinearLayoutManager(context)
         binding.chatRecyclerview.adapter = chatAdapter
 
-        binding.voiceButton.setOnClickListener {
-            if (binding.voiceButton.text == "0") {
-                checkPermission()
-                binding.voiceButton.text = "1"
-                binding.voiceButton.foreground = ContextCompat.getDrawable(requireContext(), R.drawable.stop_button)
-            } else {
-                stopRecording()
-                binding.voiceButton.text = "0"
-                binding.voiceButton.foreground = ContextCompat.getDrawable(requireContext(), R.drawable.mic_button)
-            }
-        }
-
         imageButton.setOnClickListener{
             val userInput = inputChat.text.toString().trim()
             if(userInput.isNotEmpty()){
@@ -235,12 +223,54 @@ class ThreeFragment : Fragment() {
                 }
             }
         }
+        binding.voiceButton.setOnClickListener {
+            if (binding.voiceButton.text == "0") {
+                checkPermission()
+                binding.voiceButton.text = "1"
+                binding.voiceButton.foreground = ContextCompat.getDrawable(requireContext(), R.drawable.stop_button)
+            } else {
+                stopRecording()
+                binding.voiceButton.text = "0"
+                binding.voiceButton.foreground = ContextCompat.getDrawable(requireContext(), R.drawable.mic_button)
+                CoroutineScope(Dispatchers.IO).launch {
+                    try {
+                        val userInput = openAIRepository.sendVoiceRequest("test.m4a")
+                        chatMessages.add(Message("dd",userInput, true,MessageStatus.Sent))
+                        chatMessages.add(Message("dd","AI is sending.", false,MessageStatus.Sending))
+                        chatAdapter.notifyDataSetChanged()
+                        binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
+                        val conversation = Conversation(listOf(Message(text = userInput, isFromUser = true)))
+
+                        // Send chat request and get AI response
+                        val aiResponse = openAIRepository.sendChatRequest(conversation)
+
+                        // Add AI response to the chat
+                        withContext(Dispatchers.Main) {
+                            chatMessages[chatMessages.size - 1].text = aiResponse.text
+                            chatMessages[chatMessages.size - 1].messageStatus = MessageStatus.Sent
+                            chatAdapter.notifyDataSetChanged()
+                            binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
+                            button_on(binding)
+                        }
+                    } catch (e: Exception) {
+                        // Handle the exception (e.g., show an error message)
+                        withContext(Dispatchers.Main) {
+                            chatMessages[chatMessages.size - 1].text = "ERROR"
+                            chatMessages[chatMessages.size - 1].messageStatus = MessageStatus.Error
+                            chatAdapter.notifyDataSetChanged()
+                            binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
+                            button_on(binding)
+                        }
+                    }
+                }
+            }
+        }
         sendButton.setOnClickListener {
             val userInput = inputChat.text.toString().trim()
             if (userInput.isNotEmpty()) {
                 // Add user message to the chat
                 inputChat.text.clear()
-                binding.sendButton.isEnabled=false
+                button_off(binding)
                 chatMessages.add(Message("dd",userInput, true,MessageStatus.Sent))
                 chatMessages.add(Message("dd","AI is sending.", false,MessageStatus.Sending))
                 chatAdapter.notifyDataSetChanged()
@@ -249,13 +279,6 @@ class ThreeFragment : Fragment() {
                 // art a new coroutine for asynchronous work
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val file = File("/data/data/com.example.madcamp/files")
-                        if(!file.exists()) {
-                            file.mkdirs()
-                        }
-                        val test = openAIRepository.sendVoiceRequest("test.m4a")
-
-                        val url = openAIRepository.sendImageVarRequest(userInput)
                         // Create a new conversation object
                         val conversation = Conversation(listOf(Message(text = userInput, isFromUser = true)))
 
@@ -268,7 +291,7 @@ class ThreeFragment : Fragment() {
                             chatMessages[chatMessages.size - 1].messageStatus = MessageStatus.Sent
                             chatAdapter.notifyDataSetChanged()
                             binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
-                            binding.sendButton.isEnabled=true
+                            button_on(binding)
                         }
                     } catch (e: Exception) {
                         // Handle the exception (e.g., show an error message)
@@ -277,7 +300,7 @@ class ThreeFragment : Fragment() {
                             chatMessages[chatMessages.size - 1].messageStatus = MessageStatus.Error
                             chatAdapter.notifyDataSetChanged()
                             binding.chatRecyclerview.scrollToPosition(chatMessages.size - 1)
-                            binding.sendButton.isEnabled=true
+                            button_on(binding)
                         }
                     }
                 }

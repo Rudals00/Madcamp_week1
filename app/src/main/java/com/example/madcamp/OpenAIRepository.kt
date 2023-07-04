@@ -28,6 +28,7 @@ import com.example.madcamp.MessageStatus
 import okio.FileSystem
 import okio.Path.Companion.toPath
 import okio.Source
+import java.io.File
 
 @OptIn(BetaOpenAI::class)
 class OpenAIRepository(private val openAI: OpenAI) {
@@ -51,6 +52,10 @@ class OpenAIRepository(private val openAI: OpenAI) {
         )
     }
     suspend fun sendVoiceRequest(fileName: String): String {
+        val file = File("/data/data/com.example.madcamp/files")
+        if(!file.exists()) {
+            file.mkdirs()
+        }
         val filePath = "/data/data/com.example.madcamp/files/"
         val path = (filePath + fileName).toPath()
         val audioSource = FileSystem.SYSTEM.source(path)
