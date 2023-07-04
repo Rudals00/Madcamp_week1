@@ -1,10 +1,12 @@
 package com.example.madcamp
 
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
@@ -33,7 +35,7 @@ import com.example.madcamp.databinding.ItemRecyclerview1Binding
 import java.util.Random
 
 class MyViewHolder1(val binding: ItemRecyclerview1Binding): RecyclerView.ViewHolder(binding.root)
-
+private val deletedContacts = mutableSetOf<String>()
 class Person(val id:String, val name:String, val phone_number:String,val email:String) {
     var profile_num:Int = 0
     init {
@@ -91,6 +93,21 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
 
         holder.binding.itemData.setOnClickListener {
             change_detail(position)
+        }
+        holder.binding.itemData.setOnLongClickListener { view ->
+            AlertDialog.Builder(view.context).apply {
+                setTitle("Confirm Delete")
+                setMessage("Are you sure you want to delete this profile?")
+                setPositiveButton("Yes") { _, _ ->
+                    val person = datas[position]
+                    deletedContacts.add(person.id)
+                    datas.removeAt(position)
+                    notifyItemRemoved(position)
+                    notifyItemRangeChanged(position, datas.size)
+                }
+                setNegativeButton("No", null)
+            }.show()
+            true
         }
     }
 
@@ -188,7 +205,7 @@ class OneFragment : Fragment() {
             startActivity(intent)
         }
 
-        binding.addContact.setOnClickListener {
+        binding.rightText.setOnClickListener {
             addContact()
         }
         return binding.root
@@ -234,6 +251,11 @@ class OneFragment : Fragment() {
             while (contactsCursor.moveToNext()) {
                 val contactId =
                     contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
+
+                if (deletedContacts.contains(contactId)) {
+                    // Skip the deleted contact
+                    continue
+                }
                 val name =
                     contactsCursor.getString(contactsCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                 val phoneNumber =

@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp.databinding.FragmentTwoBinding
 import com.example.madcamp.databinding.ItemRecyclerview2Binding
 import android.Manifest
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
@@ -166,7 +167,31 @@ class MyAdapter2(val datas: MutableList<Any>,val fragmentBinding: FragmentTwoBin
             is Bitmap -> binding.itemData.setImageBitmap(item)
             else -> throw IllegalArgumentException("Unexpected data type")
         }
-
+        holder.binding.itemData.setOnLongClickListener { view ->
+            AlertDialog.Builder(view.context).apply {
+                setTitle("Confirm Delete")
+                setMessage("Are you sure you want to delete this image?")
+                setPositiveButton("Yes") { _, _ ->
+                    when (val data = datas[position]) {
+                        is Int -> {
+                            datas.removeAt(position)
+                            notifyItemRemoved(position)
+                        }
+                        is Uri -> {
+                            datas.removeAt(position)
+                            notifyItemRemoved(position)
+                        }
+                        is Bitmap -> {
+                            datas.removeAt(position)
+                            notifyItemRemoved(position)
+                        }
+                        else -> throw IllegalArgumentException("Unexpected data type")
+                    }
+                }
+                setNegativeButton("No", null)
+            }.show()
+            true
+        }
         holder.binding.itemData.setOnClickListener {
             when (val data = datas[position]) {
                 is Int -> {
@@ -260,8 +285,8 @@ class TwoFragment : Fragment() {
         binding.recyclerview.adapter = MyAdapter2(datas,binding)
         binding.recyclerview.addItemDecoration(MyDecoration2(activity as Context))
 
-        binding.floatingActionButton.setOnClickListener {
-            val popupMenu = PopupMenu(requireContext(), binding.floatingActionButton)
+        binding.rightText.setOnClickListener {
+            val popupMenu = PopupMenu(requireContext(), binding.rightText)
             popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
             popupMenu.setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {

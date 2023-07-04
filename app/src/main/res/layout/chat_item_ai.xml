@@ -16,7 +16,7 @@
         android:padding="8dp"
         android:textColor="@android:color/black"
         android:visibility="visible"
-        android:background="@drawable/round_back"
+        android:background="@drawable/round_back_ai"
         android:textSize="16sp"/>
     <ImageView
         android:id="@+id/chat_image_view"
