@@ -109,11 +109,11 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyViewHolder1).binding
-        binding.itemData.text = datas[position].name
-        binding.profileData.text = datas[position].name.substring(0,1)
-        binding.itemDataNum.text = datas[position].phone_number
+        binding.itemData.text = filteredDatas[position].name
+        binding.profileData.text = filteredDatas[position].name.substring(0,1)
+        binding.itemDataNum.text = filteredDatas[position].phone_number
 
-        val num = datas[position].profile_num
+        val num = filteredDatas[position].profile_num
         when(num) {
             0 ->binding.profileData.setBackgroundResource(R.drawable.round_button_1)
             1 ->binding.profileData.setBackgroundResource(R.drawable.round_button_2)
