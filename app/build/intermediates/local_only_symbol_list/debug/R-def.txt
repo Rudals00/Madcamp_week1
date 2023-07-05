@@ -22,6 +22,7 @@ drawable img5
 drawable img6
 drawable img7
 drawable img8
+drawable layout_bg
 drawable mic_button
 drawable msg_icon
 drawable round_back_ai

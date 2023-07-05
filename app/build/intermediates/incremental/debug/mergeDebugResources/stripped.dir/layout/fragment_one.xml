@@ -180,7 +180,8 @@
                     android:orientation="horizontal">
                     <Button
                         android:id="@+id/email_button"
-                        android:layout_width="120dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
                         android:layout_height="70dp"
                         android:backgroundTint="#FFFFFF"
                         android:foreground="@drawable/email_icon" />
@@ -190,7 +191,8 @@
                         android:layout_weight="1"/>
                     <Button
                         android:id="@+id/call_button"
-                        android:layout_width="120dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
                         android:layout_height="70dp"
                         android:backgroundTint="#FFFFFF"
                         android:foreground="@drawable/call_icon" />
@@ -201,10 +203,9 @@
                     <Button
                         android:id="@+id/msg_button"
                         android:backgroundTint="#FFFFFF"
-                        android:layout_width="120dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="20"
                         android:layout_height="70dp"
-                        android:adjustViewBounds="true"
-                        android:scaleType="centerCrop"
                         android:foreground="@drawable/msg_icon" />
                 </LinearLayout>
 

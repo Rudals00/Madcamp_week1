@@ -2479,6 +2479,7 @@ drawable img5
 drawable img6
 drawable img7
 drawable img8
+drawable layout_bg
 drawable m3_appbar_background
 drawable m3_popupmenu_background_overlay
 drawable m3_radiobutton_ripple

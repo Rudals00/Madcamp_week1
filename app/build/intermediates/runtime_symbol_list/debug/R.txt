@@ -2478,6 +2478,7 @@ int drawable img5 0x7f07007d
 int drawable img6 0x7f07007e
 int drawable img7 0x7f07007f
 int drawable img8 0x7f070080
+int drawable layout_bg 0x7f0700c0
 int drawable m3_appbar_background 0x7f070081
 int drawable m3_popupmenu_background_overlay 0x7f070082
 int drawable m3_radiobutton_ripple 0x7f070083
