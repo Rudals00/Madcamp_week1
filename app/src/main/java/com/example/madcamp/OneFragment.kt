@@ -82,6 +82,7 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
         val binding = (holder as MyViewHolder1).binding
         binding.itemData.text = datas[position].name
         binding.profileData.text = datas[position].name.substring(0,1)
+        binding.itemDataNum.text = datas[position].phone_number
 
         val num = datas[position].profile_num
         when(num) {
@@ -95,6 +96,7 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
         holder.binding.itemData.setOnClickListener {
             change_detail(position)
         }
+
         holder.binding.itemData.setOnLongClickListener { view ->
             AlertDialog.Builder(view.context).apply {
                 setTitle("Confirm Delete")
@@ -168,6 +170,7 @@ class OneFragment : Fragment() {
         checkPermission()
 
         binding.backButton.setOnClickListener {
+            binding.position.text="-1"
             binding.toolbar.visibility=View.VISIBLE
             binding.detailInfo.visibility=View.GONE
         }
