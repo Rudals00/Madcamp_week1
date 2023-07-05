@@ -168,14 +168,34 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:id="@+id/email_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:foreground="@drawable/email_icon" />
+
+                    <Button
+                        android:id="@+id/call_button"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:foreground="@drawable/call_icon" />
+                    <Button
+                        android:id="@+id/msg_button"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:backgroundTint="#FFFFFF"
+                        android:foreground="@drawable/msg_icon" />
+                </LinearLayout>
+
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/phone"
@@ -194,7 +214,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="이메일"
+                        android:text="휴대전화"
                         android:textColor="#000000"
                         android:textSize="15dp" />
                     <TextView
@@ -209,18 +229,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
-                <Button
-                    android:id="@+id/call_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:backgroundTint="#FFFFFF"
-                    android:foreground="@drawable/email_icon" />
-                <Button
-                    android:id="@+id/msg_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:backgroundTint="#FFFFFF"
-                    android:foreground="@drawable/email_icon" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -255,12 +264,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
-                <Button
-                    android:id="@+id/email_button"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:backgroundTint="#FFFFFF"
-                    android:foreground="@drawable/email_icon" />
+
             </LinearLayout>
 
         </LinearLayout>
