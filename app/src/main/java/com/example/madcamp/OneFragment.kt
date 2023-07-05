@@ -176,8 +176,8 @@ class MyDecoration1(val context: Context): RecyclerView.ItemDecoration() {
 //        }
         outRect.set(10, 10, 10, 0)
 
-        view.setBackgroundColor(Color.parseColor("#ffffff"))
-        ViewCompat.setElevation(view, 5.0f)
+//        view.setBackgroundColor(Color.parseColor("#ffffff"))
+//        ViewCompat.setElevation(view, 5.0f)
     }
 }
 

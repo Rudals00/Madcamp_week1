@@ -4,12 +4,12 @@
     android:layout_height="wrap_content"
     android:id="@+id/item_root"
     android:orientation="horizontal"
-    android:paddingTop="3dp"
-    android:paddingBottom="3dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:background="@drawable/item_bg"
     android:gravity = "center"
     android:layout_marginLeft="15dp"
-    android:layout_marginRight="15dp"
-    android:layout_marginBottom="3dp">
+    android:layout_marginRight="15dp">
     <TextView
         android:id="@+id/profile_data"
         android:layout_width="40dp"
@@ -24,6 +24,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         android:orientation="vertical">
         <TextView
             android:id="@+id/item_data"
@@ -32,9 +33,11 @@
             android:textStyle="bold"
             android:textSize="18sp" />
         <TextView
+            android:layout_marginTop="2dp"
             android:id="@+id/item_data_num"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#8F8F8F"
             android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>
