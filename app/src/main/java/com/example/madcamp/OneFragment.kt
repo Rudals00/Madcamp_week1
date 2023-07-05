@@ -135,7 +135,7 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
         }
         Log.d("chan","clickeditem: ${position}")
         fragmentBinding.detailInfo.visibility=View.VISIBLE
-        fragmentBinding.searchEditText.visibility=View.GONE
+        fragmentBinding.searchBar.visibility=View.GONE
         fragmentBinding.toolbar.visibility=View.GONE
     }
 
@@ -262,7 +262,7 @@ class OneFragment : Fragment() {
         binding.backButton.setOnClickListener {
             binding.position.text="-1"
             binding.toolbar.visibility=View.VISIBLE
-            binding.searchEditText.visibility=View.VISIBLE
+            binding.searchBar.visibility=View.VISIBLE
             binding.detailInfo.visibility=View.GONE
         }
 
@@ -445,12 +445,12 @@ class OneFragment : Fragment() {
         var position = id2position(id)
         if (position > -1) {
             binding.detailInfo.visibility=View.VISIBLE
-            binding.searchEditText.visibility=View.GONE
+            binding.searchBar.visibility=View.GONE
             binding.toolbar.visibility=View.GONE
             change_detail(position)
         } else {
             binding.detailInfo.visibility=View.GONE
-            binding.searchEditText.visibility=View.VISIBLE
+            binding.searchBar.visibility=View.VISIBLE
             binding.toolbar.visibility=View.VISIBLE
         }
     }
@@ -503,7 +503,7 @@ class OneFragment : Fragment() {
             Log.d("CHAN","visible")
             binding.detailInfo.visibility=View.GONE
             binding.toolbar.visibility=View.VISIBLE
-            binding.searchEditText.visibility=View.VISIBLE
+            binding.searchBar.visibility=View.VISIBLE
             return 1
         }
         return 0
