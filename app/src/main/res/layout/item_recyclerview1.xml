@@ -3,25 +3,67 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:id="@+id/item_root"
-    android:orientation="horizontal"
-    android:padding="16dp"
-    android:gravity = "center"
-    android:layout_marginBottom="3dp">
-    <TextView
-        android:id="@+id/profile_data"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:gravity = "center"
-        android:textStyle="bold"
-        android:textSize="25dp" />
-    <TextView
-        android:layout_width="10dp"
-        android:layout_height="40dp" />
-    <TextView
-        android:id="@+id/item_data"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/item"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20dp" />
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:background="@drawable/item_bg"
+        android:gravity = "center"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp">
+        <TextView
+            android:id="@+id/profile_data"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:gravity = "center"
+            android:textStyle="bold"
+            android:textSize="25dp" />
+        <TextView
+            android:layout_width="10dp"
+            android:layout_height="40dp" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/item_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_marginTop="2dp"
+                android:id="@+id/item_data_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#8F8F8F"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/initial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/item_bg"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/initial_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="김"
+            android:textSize="12sp"
+            android:textColor="#000000"
+            />
+    </LinearLayout>
 </LinearLayout>

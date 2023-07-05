@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class SplashActivity : AppCompatActivity() {
 
-    private val SPLASH_DELAY: Long = 3000 // 3초
+    private val SPLASH_DELAY: Long = 2500 // 3초
     private val ANIMATION_DELAY: Long = 500 // 1.5초
 
     private lateinit var imageViewLeft: ImageView
