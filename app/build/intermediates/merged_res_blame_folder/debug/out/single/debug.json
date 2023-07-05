@@ -20,12 +20,12 @@
         "source": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-main-29:/layout/fragment_three.xml"
     },
     {
-        "merged": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-merged_res-27:/drawable_msg_icon.png.flat",
-        "source": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-main-29:/drawable/msg_icon.png"
-    },
-    {
         "merged": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-merged_res-27:/layout_chat_item_ai.xml.flat",
         "source": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-main-29:/layout/chat_item_ai.xml"
+    },
+    {
+        "merged": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-merged_res-27:/drawable_msg_icon.png.flat",
+        "source": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-main-29:/drawable/msg_icon.png"
     },
     {
         "merged": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-merged_res-27:/drawable_chat_button.png.flat",
@@ -50,6 +50,10 @@
     {
         "merged": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-merged_res-27:/mipmap-hdpi_ic_launcher_foreground.png.flat",
         "source": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-main-29:/mipmap-hdpi/ic_launcher_foreground.png"
+    },
+    {
+        "merged": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-merged_res-27:/drawable_layout_bg.xml.flat",
+        "source": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-main-29:/drawable/layout_bg.xml"
     },
     {
         "merged": "/Users/parkbyeongchan/.gradle/daemon/8.0.2/com.example.madcamp.app-merged_res-27:/mipmap-xxxhdpi_ic_launcher.png.flat",
