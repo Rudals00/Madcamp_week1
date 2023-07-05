@@ -36,10 +36,41 @@ import com.example.madcamp.databinding.FragmentOneBinding
 import com.example.madcamp.databinding.ItemRecyclerview1Binding
 import java.util.Locale
 import java.util.Random
+import java.text.Normalizer
+
+object HangulUtils {
+    private val CHO = charArrayOf(
+        'ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ',
+        'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'
+    )
+
+    fun getInitialSound(word: String): Char {
+        val h = Normalizer.normalize(word, Normalizer.Form.NFD)
+        val ch = h[0]
+        val p = h.indexOfFirst { it == '\u031B' } // ư : U+031B
+        return if (p > -1) {
+            when (h.substring(0 until p)) {
+                "k", "g" -> 'ㄱ'
+                "ng", "n" -> 'ㄴ'
+                "t", "d" -> 'ㄷ'
+                "l" -> 'ㄹ'
+                "m" -> 'ㅁ'
+                "p", "b" -> 'ㅂ'
+                "s" -> 'ㅅ'
+                else -> 'ㅇ'
+            }
+        } else if (ch < '가' || ch > '힣') {
+            ch
+        } else {
+            val base = (ch - '가').toInt()
+            CHO[base / (21 * 28)]
+        }
+    }
+}
 
 class MyViewHolder1(val binding: ItemRecyclerview1Binding): RecyclerView.ViewHolder(binding.root)
 private val deletedContacts = mutableSetOf<String>()
-class Person(val id:String, val name:String, val phone_number:String,val email:String) {
+class Person(val id:String, val name:String, val phone_number:String,val email:String,val isTag:Boolean = false) {
     var profile_num:Int = 0
     init {
         val random = Random()
@@ -104,30 +135,43 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
         }
         Log.d("chan","clickeditem: ${position}")
         fragmentBinding.detailInfo.visibility=View.VISIBLE
+        fragmentBinding.searchEditText.visibility=View.GONE
         fragmentBinding.toolbar.visibility=View.GONE
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val binding = (holder as MyViewHolder1).binding
-        binding.itemData.text = filteredDatas[position].name
-        binding.profileData.text = filteredDatas[position].name.substring(0,1)
-        binding.itemDataNum.text = filteredDatas[position].phone_number
+        if(filteredDatas[position].isTag) {
+            binding.initialText.text = filteredDatas[position].name
+            binding.initial.visibility=View.VISIBLE
+            binding.item.visibility=View.GONE
+        }
+        else {
+            binding.initial.visibility=View.GONE
+            binding.item.visibility=View.VISIBLE
+            binding.itemData.text = filteredDatas[position].name
+            binding.profileData.text = filteredDatas[position].name.substring(0, 1)
+            binding.itemDataNum.text = filteredDatas[position].phone_number
 
-        val num = filteredDatas[position].profile_num
-        when(num) {
-            0 ->binding.profileData.setBackgroundResource(R.drawable.round_button_1)
-            1 ->binding.profileData.setBackgroundResource(R.drawable.round_button_2)
-            2 ->binding.profileData.setBackgroundResource(R.drawable.round_button_3)
-            3 ->binding.profileData.setBackgroundResource(R.drawable.round_button_4)
-            else ->binding.profileData.setBackgroundResource(R.drawable.round_button_5)
+            val num = filteredDatas[position].profile_num
+            when (num) {
+                0 -> binding.profileData.setBackgroundResource(R.drawable.round_button_1)
+                1 -> binding.profileData.setBackgroundResource(R.drawable.round_button_2)
+                2 -> binding.profileData.setBackgroundResource(R.drawable.round_button_3)
+                3 -> binding.profileData.setBackgroundResource(R.drawable.round_button_4)
+                else -> binding.profileData.setBackgroundResource(R.drawable.round_button_5)
+            }
         }
 
-        holder.binding.itemData.setOnClickListener {
-            change_detail(position)
+        holder.binding.itemRoot.setOnClickListener {
+            if(!filteredDatas[position].isTag) {
+                change_detail(position)
+            }
         }
 
-        holder.binding.itemData.setOnLongClickListener { view ->
-            AlertDialog.Builder(view.context).apply {
+        holder.binding.itemRoot.setOnLongClickListener {
+                view ->AlertDialog.Builder(view.context).apply {
+            if(!filteredDatas[position].isTag) {
                 setTitle("Confirm Delete")
                 setMessage("Are you sure you want to delete this profile?")
                 setPositiveButton("Yes") { _, _ ->
@@ -138,6 +182,7 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
                     notifyItemRangeChanged(position, datas.size)
                 }
                 setNegativeButton("No", null)
+            }
             }.show()
             true
         }
@@ -217,6 +262,7 @@ class OneFragment : Fragment() {
         binding.backButton.setOnClickListener {
             binding.position.text="-1"
             binding.toolbar.visibility=View.VISIBLE
+            binding.searchEditText.visibility=View.VISIBLE
             binding.detailInfo.visibility=View.GONE
         }
 
@@ -286,11 +332,25 @@ class OneFragment : Fragment() {
         val intent = Intent(Intent.ACTION_INSERT)
             .setType(ContactsContract.Contacts.CONTENT_TYPE)
             .putExtra(ContactsContract.Intents.Insert.NAME,"")
-            .putExtra(ContactsContract.Intents.Insert.PHONE, "010")
+            .putExtra(ContactsContract.Intents.Insert.PHONE, "010-")
             .putExtra(ContactsContract.Intents.Insert.EMAIL, "")
         startActivity(intent)
     }
 
+    fun insertInitials() {
+        var lastInitial: Char? = null
+
+        var index = 0
+        while (index < datas.size) {
+            val initial = HangulUtils.getInitialSound(datas[index].name)
+            if (lastInitial != initial) {
+                lastInitial = initial
+                datas.add(index, Person("",initial.toString(),"","",true) )
+                index++ // New element was added, increment index to skip it
+            }
+            index++
+        }
+    }
     private fun refreshContacts() {
         datas.clear()
 
@@ -324,6 +384,7 @@ class OneFragment : Fragment() {
             }
             contactsCursor.close()
             Log.d("CHAN","refresh")
+            insertInitials()
 
             adapter?.notifyDataSetChanged()
         } else {
@@ -344,14 +405,20 @@ class OneFragment : Fragment() {
         binding.name.text=datas[position].name
         if (datas[position].phone_number == "") {
             binding.phone.visibility=View.GONE
+            binding.callButton.isEnabled=false
+            binding.msgButton.isEnabled=false
         } else {
             binding.phoneText.text=datas[position].phone_number
+            binding.callButton.isEnabled=true
+            binding.msgButton.isEnabled=true
             binding.phone.visibility=View.VISIBLE
         }
         if (datas[position].email == "") {
             binding.email.visibility=View.GONE
+            binding.emailButton.isEnabled=false
         } else {
             binding.emailText.text=datas[position].email
+            binding.emailButton.isEnabled=true
             binding.email.visibility=View.VISIBLE
         }
         Log.d("chan","clickeditem: ${position}")
@@ -377,9 +444,13 @@ class OneFragment : Fragment() {
         checkPermission()
         var position = id2position(id)
         if (position > -1) {
+            binding.detailInfo.visibility=View.VISIBLE
+            binding.searchEditText.visibility=View.GONE
+            binding.toolbar.visibility=View.GONE
             change_detail(position)
         } else {
             binding.detailInfo.visibility=View.GONE
+            binding.searchEditText.visibility=View.VISIBLE
             binding.toolbar.visibility=View.VISIBLE
         }
     }
@@ -432,6 +503,7 @@ class OneFragment : Fragment() {
             Log.d("CHAN","visible")
             binding.detailInfo.visibility=View.GONE
             binding.toolbar.visibility=View.VISIBLE
+            binding.searchEditText.visibility=View.VISIBLE
             return 1
         }
         return 0
