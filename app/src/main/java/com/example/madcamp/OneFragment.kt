@@ -14,6 +14,8 @@ import android.graphics.Rect
 import android.net.Uri
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
@@ -32,6 +34,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.madcamp.databinding.ActivityMainBinding
 import com.example.madcamp.databinding.FragmentOneBinding
 import com.example.madcamp.databinding.ItemRecyclerview1Binding
+import java.util.Locale
 import java.util.Random
 
 class MyViewHolder1(val binding: ItemRecyclerview1Binding): RecyclerView.ViewHolder(binding.root)
@@ -45,11 +48,37 @@ class Person(val id:String, val name:String, val phone_number:String,val email:S
 }
 
 class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOneBinding): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val filteredDatas = mutableListOf<Person>()
+
+    init {
+        filteredDatas.addAll(datas)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return MyViewHolder1(ItemRecyclerview1Binding.inflate(
             LayoutInflater.from(parent.context), parent, false))
     }
+    fun filter(query: String) {
+        filteredDatas.clear()
+        if (query.isEmpty()) {
+            filteredDatas.addAll(datas)
+        } else {
+            val lowerCaseQuery = query
+            for (person in datas) {
+                if (person.name.contains(lowerCaseQuery)
+                ) {
+                    filteredDatas.add(person)
+                    Log.d("find","QUERY: ${query}, result: ${person.name}")
+                }
+            }
+        }
+        notifyDataSetChanged()
+        scrollToTop()
+    }
 
+    private fun scrollToTop() {
+        fragmentBinding.recyclerview.scrollToPosition(0)
+    }
     fun change_detail(position: Int) {
         when(datas[position].profile_num) {
             0 ->fragmentBinding.profileData.setBackgroundResource(R.drawable.round_button_1)
@@ -115,7 +144,7 @@ class MyAdapter1(val datas: MutableList<Person>,val fragmentBinding: FragmentOne
     }
 
     override fun getItemCount(): Int {
-        return datas.size
+        return filteredDatas.size
     }
 }
 
@@ -168,6 +197,22 @@ class OneFragment : Fragment() {
         binding.recyclerview.addItemDecoration(MyDecoration1(activity as Context))
 
         checkPermission()
+
+        binding.searchEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // 이전 텍스트 변경 전에 호출되는 콜백
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // 텍스트가 변경될 때마다 호출되는 콜백
+                adapter?.filter(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // 텍스트 변경 후에 호출되는 콜백
+            }
+        })
+        adapter?.filter("")
 
         binding.backButton.setOnClickListener {
             binding.position.text="-1"
