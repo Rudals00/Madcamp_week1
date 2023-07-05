@@ -175,7 +175,7 @@ class ThreeFragment : Fragment() {
         val imageButton: Button = binding.imageButton
 
         val config = OpenAIConfig(
-            token = "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" ,
+            token = "YOUR-API-KEY" ,
             timeout = Timeout(socket = 20.seconds)
         )
         val openAI = OpenAI(config)
