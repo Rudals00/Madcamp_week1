@@ -2,7 +2,6 @@
 
 ---
 
-Flow Week1 4분반 병찬,경민팀
 
 - chat gpt api를 이용하여 이미지 generation, sound to text로 검색기능, chat 검색기능이 가능합니다
 - 연락처를 받아와서 search,add,delete,상세정보창에서 전화,메세지,이메일보내기가 가능합니다
@@ -12,8 +11,6 @@ Flow Week1 4분반 병찬,경민팀
 
 ### a. 개발 팀원
 
-- 김경민 - 한양대학교 컴퓨터소프트웨어학부 19학번
-- 박병찬 - KAIST 전산학부 21학번
 
 ---
 
